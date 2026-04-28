@@ -10,6 +10,7 @@ namespace DesignPatterns.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Index(CustomerProcessViewModel model)
         {
