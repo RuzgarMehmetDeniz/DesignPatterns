@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
@@ -9,70 +9,64 @@
 
 <body>
 
-    <div class="body-wrap overflow-hidden">
+	<div class="body-wrap overflow-hidden">
 
-        <div class="backtotop">
-            <a href="#!" class="scroll">
-                <i class="far fa-arrow-up fw-bold"></i>
-            </a>
-        </div>
+		<div class="backtotop">
+			<a href="#!" class="scroll">
+				<i class="far fa-arrow-up fw-bold"></i>
+			</a>
+		</div>
 
-        @await Component.InvokeAsync("_DefaultHeaderComponentPartial")
+		@await Component.InvokeAsync("_DefaultHeaderComponentPartial")
 
 
-        <!-- main body start -->
-        <main>
-            <!-- sidebar section start -->
-            @await Component.InvokeAsync("_DefaultSidebarComponentPartial")
+		<!-- main body start -->
+		<main>
+			@await Component.InvokeAsync("_DefaultSidebarComponentPartial")
 
-            <!-- sidebar section end -->
-            <!-- banner section start -->
-            @await Component.InvokeAsync("_DefaultBannerComponentPartial")
+			@* Banner Alanı *@
+			@await Component.InvokeAsync("_DefaultBannerComponentPartial")
 
-            <!-- banner section end -->
-            <!-- service section start -->
-            @await Component.InvokeAsync("_DefaultServiceComponentPartial")
-            <!-- service section end -->
-            <!-- product section-2 start -->
-            @await Component.InvokeAsync("_DefaultProductComponentPartial")
-            <!-- product section-2 end -->
-            <!-- trend section start -->
-            @await Component.InvokeAsync("_DefaultTrendComponentPartial")
-            <!-- trend section end -->
-            <!-- quality section start -->
-            @await Component.InvokeAsync("_DefaultQuealityComponentPartial")
-            <!-- quality section end -->
-            <!-- sale2 section start -->
-            @await Component.InvokeAsync("_DefaultSaleComponentPartial")
-            <!-- sale2 section end -->
-            <!-- product section start -->
-            @await Component.InvokeAsync("_DefaultProductSectionComponentPartial")
-            <!-- product section end -->
-            <!-- blog section start -->
-            @await Component.InvokeAsync("_DefaultBlogComponentPartial")
-            <!-- blog section end -->
-            <!-- sale2 section start -->
-            @await Component.InvokeAsync("_DefaultSaleSectionComponentPartial")
-            <!-- sale2 section end -->
-            <!-- testimonial-3 section start  -->
-            @await Component.InvokeAsync("_DefaultTestimonialComponentPartial")
-            <!-- testimonial-3 section end  -->
-            <!-- instagram section start -->
-            @await Component.InvokeAsync("_DefaultInstagramComponentPartial")
-            <!-- instagram section end -->
-            <!-- brand section start -->
-            @await Component.InvokeAsync("_DefaultBrandComponentPartial")
-            <!-- brand section end -->
-        </main>
-        <!-- main body end -->
-        <!-- footer section start -->
-        @await Component.InvokeAsync("_DefaultFooterComponentPartial")
-        <!-- footer section end -->
-        <!-- quick-view start -->
-        @await Component.InvokeAsync("_DefaultQuickViewComponentPartial")
-        <!-- quick-view end -->
-    </div>
-    @await Component.InvokeAsync("_DefaultScriptComponentPartial")
+			@* Service Alanı *@
+			@await Component.InvokeAsync("_DefaultServiceComponentPartial")
+
+			@* Hakkımızda Bölümü *@
+			@await Component.InvokeAsync("_DefaultProductComponentPartial")
+
+			@* Trend Alanı *@
+			@await Component.InvokeAsync("_DefaultTrendComponentPartial")
+
+			@* Taze Ürünler Alanı *@
+			@await Component.InvokeAsync("_DefaultQuealityComponentPartial")
+
+			@* Satış Alanı *@
+			@await Component.InvokeAsync("_DefaultSaleComponentPartial")
+
+			@* Ürün Listeleme Alanı *@
+			@await Component.InvokeAsync("_DefaultProductSectionComponentPartial")
+
+			@* Blog Alanı *@
+			@await Component.InvokeAsync("_DefaultBlogComponentPartial")
+
+			@* Testimonial Alanı *@
+			@await Component.InvokeAsync("_DefaultTestimonialComponentPartial")
+
+			@* İnstagram Alanı*@
+			@await Component.InvokeAsync("_DefaultInstagramComponentPartial")
+
+			@* Marka Alanı *@
+			@await Component.InvokeAsync("_DefaultBrandComponentPartial")
+			<!-- brand section end -->
+		</main>
+		<!-- main body end -->
+		<!-- footer section start -->
+		@await Component.InvokeAsync("_DefaultFooterComponentPartial")
+		<!-- footer section end -->
+		<!-- quick-view start -->
+		@await Component.InvokeAsync("_DefaultQuickViewComponentPartial")
+		<!-- quick-view end -->
+	</div>
+	@await Component.InvokeAsync("_DefaultScriptComponentPartial")
 
 </body>
 
