@@ -1,26 +1,25 @@
-﻿<section class="banner_section_main position-relative banner_2">
+﻿@model Banner
+<section class="banner_section_main position-relative banner_2">
     <div class="banner_section_item d-flex justify-content-center align-items-center sec_space_large"
          style="background-image: url(/Organic/organic-html/assets/images/banner/banner2.png);">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 ms-3">
                     <div class="banner_sub_title2 position-relative">
-                        <h6 class="text-white text-uppercase position-absolute">%100 Organik Gıdalar</h6>
-                        <img class="sub_title_bg" src="/Organic/organic-html/assets/images/shapes/shape2.png"
+                        <h6 class="text-white text-uppercase position-absolute">@Model.BannerTitle</h6>
+                        <img class="sub_title_bg" src="@Model.ImageUrl"
                              alt="image_not_found">
                     </div>
                     <div class="banner_title2">
                         <h1>
-                            Pişirdiğiniz Organik Sebzeler ve Gıdalar<font class="text-effect">
-                                <span>S</span><span>a</span><span>ğ</span><span>l</span><span>ı</span><span>k</span><span>l</span><span>ı</span>
+                           @Model.BannerTitle2<font class="text-effect">
+                                <span>G</span><span>ü</span><span>v</span><span>e</span><span>n</span><span>i</span><span>r</span><span>l</span><span>i</span>
                             </font>
                         </h1>
                     </div>
                     <div class="banner_desc py-3">
                         <p>
-                            Morbi eget congue lectus. Donec eleifend ultricies urna et euismod. Sed
-                            consectetur tellus eget odio aliquet, vel vestibulum tellus sollicitudin. Morbi
-                            maximus metus eu eros tincidunt
+                           @Model.Description
                         </p>
                     </div>
                     <div class="banner_btn">

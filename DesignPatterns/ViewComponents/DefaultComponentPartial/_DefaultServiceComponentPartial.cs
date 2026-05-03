@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DesignPatterns.Context;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DesignPatterns.ViewComponents.DefaultComponentPartial
 {
     public class _DefaultServiceComponentPartial:ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly BankContext _bankContext;
+        public _DefaultServiceComponentPartial(BankContext bankContext)
         {
-            return View();
+            _bankContext = bankContext;
+        }
+        public async Task<IViewComponentResult >InvokeAsync()
+        {
+            var services = await _bankContext.Services.ToListAsync();
+            return View(services);
         }
     }
 }

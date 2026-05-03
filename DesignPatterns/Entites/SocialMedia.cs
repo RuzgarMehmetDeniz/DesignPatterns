@@ -2,6 +2,7 @@
 {
     public class SocialMedia
     {
+        public int SocialMediaId { get; set; }
         public string ImageUrl1 { get; set; }
         public string ImageUrl2 { get; set; }
         public string Icon { get; set; }
