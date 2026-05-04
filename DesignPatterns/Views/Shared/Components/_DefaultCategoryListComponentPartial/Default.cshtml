@@ -1,0 +1,21 @@
+﻿@model List<DesignPatterns.Entites.Category>
+
+<div class="d-flex justify-content-center align-items-center">
+    <ul class="product_tabnav_3 nav nav-pills mb-4 mt-3" id="pills-tab" role="tablist">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var category = Model[i];
+            <li class="nav-item" role="presentation">
+                <button class="nav-link @(i == 0 ? "active" : "") text-uppercase"
+                        id="pills-cat-@category.CategoryId-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-cat-@category.CategoryId"
+                        type="button" role="tab"
+                        aria-controls="pills-cat-@category.CategoryId"
+                        aria-selected="@(i == 0 ? "true" : "false")">
+                    @category.Name
+                </button>
+            </li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,78 @@
+﻿@model CategoryProductViewModel
+
+<div class="tab-content" id="pills-tabContent">
+    @for (int i = 0; i < Model.Categories.Count; i++)
+    {
+        var category = Model.Categories[i];
+
+        <div class="tab-pane fade @(i == 0 ? "show active" : "")"
+             id="pills-cat-@category.CategoryId"
+             role="tabpanel"
+             aria-labelledby="pills-cat-@category.CategoryId-tab">
+
+            <div class="row">
+                @foreach (var product in Model.Products.Where(x => x.CategoryId == category.CategoryId))
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        @* Görseldeki gibi beyaz, yuvarlak köşeli ve hafif gölgeli kart yapısı *@
+                        <div class="product-card-horizontal d-flex align-items-center p-3 shadow-sm border rounded bg-white" style="height: 160px;">
+
+                            @* Sol Tarafta Ürün Görseli (Yuvarlak Arka Planlı) *@
+                            <div class="product-img-container flex-shrink-0 d-flex justify-content-center align-items-center rounded-circle bg-light" style="width: 100px; height: 100px; overflow: hidden;">
+                                <img src="@product.ImageUrl" class="img-fluid" alt="@product.Name" style="max-width: 80%; transition: transform 0.3s;">
+                            </div>
+
+                            @* Sağ Tarafta Ürün Bilgileri *@
+                            <div class="product-info ms-4 flex-grow-1">
+                                @* Yıldızlar ve Dinamik Puan *@
+                                <div class="rating mb-1" style="font-size: 12px;">
+                                    @{
+                                        // String olan Star değerini güvenli bir şekilde sayıya çeviriyoruz
+                                        int starCount = 0;
+                                        int.TryParse(product.Star, out starCount);
+                                    }
+
+                                    @* Yıldız Döngüsü *@
+                                    @for (int s = 0; s < 5; s++)
+                                    {
+                                        <i class="fas fa-star @(s < starCount ? "text-warning" : "text-light")"></i>
+                                    }
+
+                                    @* Sabit 4.0 yerine veritabanından gelen starCount yazdırılıyor *@
+                                    <span class="text-muted ms-1" style="font-size: 11px;">(@starCount.0)</span>
+                                </div>
+
+                                @* Ürün Adı *@
+                                <h6 class="fw-bold text-dark mb-1" style="font-size: 16px;">@product.Name</h6>
+
+                                @* Fiyatlar *@
+                                <div class="price-container">
+                                    <span class="text-success fw-bold me-2">@product.Price.ToString("C2")</span>
+                                    @* Eski fiyatı simule etmek için (Opsiyonel) *@
+                                    <span class="text-muted text-decoration-line-through small" style="font-size: 12px;">$65.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+<style>
+    /* Kart üzerine gelince hafif büyüme efekti */
+    .product-card-horizontal:hover {
+        border-color: #8bc34a !important; /* Yeşil tonu */
+        transition: 0.3s;
+    }
+
+        .product-card-horizontal:hover img {
+            transform: scale(1.1);
+        }
+
+    /* Kategori butonlarının görseldeki yeşil rengi */
+    .nav-pills .nav-link.active {
+        background-color: #8bc34a !important;
+        border-color: #8bc34a !important;
+    }
+</style>
