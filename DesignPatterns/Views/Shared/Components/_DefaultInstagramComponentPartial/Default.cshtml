@@ -1,53 +1,29 @@
-﻿<section class="instagram_section instagram_style_1 instagram_2 position-relative sec_space_xs_70"
+﻿@model List<SocialMedia>
+<section class="instagram_section instagram_style_1 instagram_2 position-relative sec_space_xs_70"
          data-aos="fade-up" data-aos-duration="1000">
     <div class="container">
         <div class="product_sec_sub_title d-flex justify-content-center align-items-center pb-2">
             <i class="far fa-circle"></i>
             <i class="far fa-circle"></i>
             <i class="far fa-circle"></i>
-            <span class="px-2 text-uppercase">fresh from</span>
+            <span class="px-2 text-uppercase">Sosyel Medya</span>
             <i class="far fa-circle"></i>
             <i class="far fa-circle"></i>
             <i class="far fa-circle"></i>
         </div>
-        <h2 class="instagram_title pb-5 text-center">Follow on Instagram</h2>
+        <h2 class="instagram_title pb-5 text-center">Instagram'da takip edin</h2>
         <ul class="zoom-gallery instagram_image_content ul_li slideshow4_slider"
             data-slick='{"dots": false}'>
-            <li>
-                <a class="popup_image" href="/Organic/organic-html/assets/images/instagram/instagram1.png">
-                    <img src="/Organic/organic-html/assets/images/instagram/instagram1.png" alt="image_not_found">
-                    <i class="fab fa-instagram"></i>
-                    <span>@@_Instagram</span>
-                </a>
-            </li>
-            <li>
-                <a class="popup_image" href="/Organic/organic-html/assets/images/instagram/instagram4.png">
-                    <img src="/Organic/organic-html/assets/images/instagram/instagram4.png" alt="image_not_found">
-                    <i class="fab fa-instagram"></i>
-                    <span>@@_Instagram</span>
-                </a>
-            </li>
-            <li>
-                <a class="popup_image" href="/Organic/organic-html/assets/images/instagram/instagram3.png">
-                    <img src="/Organic/organic-html/assets/images/instagram/instagram3.png" alt="image_not_found">
-                    <i class="fab fa-instagram"></i>
-                    <span>@@_Instagram</span>
-                </a>
-            </li>
-            <li>
-                <a class="popup_image" href="/Organic/organic-html/assets/images/instagram/instagram4.png">
-                    <img src="/Organic/organic-html/assets/images/instagram/instagram4.png" alt="image_not_found">
-                    <i class="fab fa-instagram"></i>
-                    <span>@@_Instagram</span>
-                </a>
-            </li>
-            <li>
-                <a class="popup_image" href="/Organic/organic-html/assets/images/instagram/instagram5.png">
-                    <img src="/Organic/organic-html/assets/images/instagram/instagram5.png" alt="image_not_found">
-                    <i class="fab fa-instagram"></i>
-                    <span>@@_Instagram</span>
-                </a>
-            </li>
+            @foreach(var item in Model)
+            {
+                <li>
+                    <a class="popup_image" href="@item.ImageUrl1">
+                        <img src="@item.ImageUrl2" alt="image_not_found">
+                        <i class="@item.Icon"></i>
+                        <span>@item.Title</span>
+                    </a>
+                </li>
+			}
         </ul>
     </div>
 </section>

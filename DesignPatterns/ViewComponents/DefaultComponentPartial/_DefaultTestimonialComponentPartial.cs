@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DesignPatterns.Context;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DesignPatterns.ViewComponents.DefaultComponentPartial
 {
     public class _DefaultTestimonialComponentPartial: ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly BankContext _bankContext;
+
+        public _DefaultTestimonialComponentPartial(BankContext bankContext)
         {
-            return View();
+            _bankContext = bankContext;
+        }
+
+        public async Task <IViewComponentResult >InvokeAsync()
+        {
+            var value = _bankContext.Testimonials.ToList();
+            return View(value);
         }
     }
 }

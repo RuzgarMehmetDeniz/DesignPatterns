@@ -1,7 +1,12 @@
-﻿<section class="brand_section sec_bottom_space_50" data-aos="fade-up" data-aos-duration="2000">
+﻿@model List< Brand>
+<section class="brand_section sec_bottom_space_50" data-aos="fade-up" data-aos-duration="2000">
     <div class="container">
-        <div class="brand_thumb text-center">
-            <img src="/Organic/organic-html/assets/images/brands/brand1.png" alt="image_not_found">
-        </div>
+        @foreach(var item in Model)
+        {
+            <div class="brand_thumb text-center">
+                <img src="@item.ImageUrl" alt="image_not_found">
+            </div>
+         }
+      
     </div>
 </section>

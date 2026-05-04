@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DesignPatterns.Context;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DesignPatterns.ViewComponents.DefaultComponentPartial
 {
     public class _DefaultBrandComponentPartial:ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly BankContext _bankContext;
+
+        public _DefaultBrandComponentPartial(BankContext bankContext)
         {
-            return View();
+            _bankContext = bankContext;
+        }
+
+        public async Task<IViewComponentResult >InvokeAsync()
+        {
+                var brands = _bankContext.Brands.ToList();
+            return View(brands);
         }
     }
 }

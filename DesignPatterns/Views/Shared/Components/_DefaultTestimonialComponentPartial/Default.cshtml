@@ -1,87 +1,35 @@
-﻿<section class="testimonial3_sec sec_space_large sec_top_100" data-aos="fade-up" data-aos-duration="2000">
+﻿@model List<DesignPatterns.Entites.Testimonial>
+
+<section class="testimonial3_sec sec_space_large sec_top_100" data-aos="fade-up" data-aos-duration="2000">
     <div class="testimonial3_sec_wrap">
         <div class="container-sm">
             <div class="testimonial3_content position-relative">
                 <div class="row">
                     <div class="col-xs-12">
+                        <!-- Üst Kısımdaki Küçük Profil Resimleri -->
                         <div class="testimonial3_slider_thmb d-flex justify-content-center align-items-center">
-                            <div class="slide_item">
-                                <img src="/Organic/organic-html/assets/images/testimonials/test-1.jpg" alt="image_not_found">
-                            </div>
-                            <div class="slide_item">
-                                <img src="vassets/images/testimonials/test-2.jpg" alt="image_not_found">
-                            </div>
-                            <div class="slide_item">
-                                <img src="/Organic/organic-html/assets/images/testimonials/test-3.jpg" alt="image_not_found">
-                            </div>
-                            <div class="slide_item">
-                                <img src="/Organic/organic-html/assets/images/testimonials/test-1.jpg" alt="image_not_found">
-                            </div>
-                            <div class="slide_item">
-                                <img src="/Organic/organic-html/assets/images/testimonials/test-2.jpg" alt="image_not_found">
-                            </div>
+                            @foreach (var item in Model)
+                            {
+                                <div class="slide_item">
+                                    <img src="@item.ImageUrl" alt="@item.Name">
+                                </div>
+                            }
                         </div>
+
+                        <!-- Alt Kısımdaki Yorum Metinleri -->
                         <div class="testimonial3_slider_items col-lg-8 m-auto">
-                            <div class="testimonial3_text">
-                                <p class="testimonial_desc text-center">
-                                    This is due to their excellent
-                                    service, competitive pricing and customer support. It’s throughly
-                                    refresing to get such a personal touch.
-                                </p>
-                                <div class="testimonial_author text-center">
-                                    Shirley Smith <font>
-                                        - Director
-                                    </font>
+                            @foreach (var item in Model)
+                            {
+                                <div class="testimonial3_text">
+                                    <p class="testimonial_desc text-center">
+                                        @item.Description
+                                    </p>
+                                    <div class="testimonial_author text-center">
+                                        @item.Name
+                                        <font>- Müşteri</font> @* Eğer Unvan varsa Model'e eklenebilir *@
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="testimonial3_text">
-                                <p class="testimonial_desc text-center">
-                                    Their excellent service, competitive
-                                    pricing and customer support. It’s throughly refresing to get such a
-                                    personal touch.
-                                </p>
-                                <div class="testimonial_author text-center">
-                                    Shirley Smith <font>
-                                        - Director
-                                    </font>
-                                </div>
-                            </div>
-                            <div class="testimonial3_text">
-                                <p class="testimonial_desc text-center">
-                                    This is due to their excellent
-                                    service, competitive pricing and customer support. It’s throughly
-                                    refresing to get such a personal touch.
-                                </p>
-                                <div class="testimonial_author text-center">
-                                    Shirley Smith <font>
-                                        - Director
-                                    </font>
-                                </div>
-                            </div>
-                            <div class="testimonial3_text">
-                                <p class="testimonial_desc text-center">
-                                    Their excellent service, competitive
-                                    pricing and customer support. It’s throughly refresing to get such a
-                                    personal touch.
-                                </p>
-                                <div class="testimonial_author text-center">
-                                    Shirley Smith <font>
-                                        - Director
-                                    </font>
-                                </div>
-                            </div>
-                            <div class="testimonial3_text">
-                                <p class="testimonial_desc text-center">
-                                    This is due to their excellent
-                                    service, competitive pricing and customer support. It’s throughly
-                                    refresing to get such a personal touch.
-                                </p>
-                                <div class="testimonial_author text-center">
-                                    Shirley Smith <font>
-                                        - Director
-                                    </font>
-                                </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
