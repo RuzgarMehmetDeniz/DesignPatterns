@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DesignPatterns.DesignPatterns.UnitOfWork;
-using DesignPatterns.Models; // CartItem burada
-using DesignPatterns.Extensions; // GetJson ve SetJson burada
+using DesignPatterns.Models;
+using DesignPatterns.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,57 +16,81 @@ namespace DesignPatterns.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // Sepet Sayfası
         public IActionResult Index()
         {
-            // Session'dan mevcut sepeti oku, yoksa boş liste oluştur
             var cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
             return View(cart);
         }
 
-        // Sepete Ürün Ekle
         public IActionResult AddToCart(int id)
         {
-            // 1. Session'daki mevcut sepeti al
             var cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
-
-            // 2. Bu ürün sepette zaten var mı kontrol et
             var cartItem = cart.FirstOrDefault(x => x.ProductId == id);
 
             if (cartItem != null)
             {
-                // Ürün varsa miktarını artır
                 cartItem.Quantity++;
             }
             else
             {
-                // Ürün yoksa veritabanından çek ve listeye ekle
                 var product = _unitOfWork.Products.GetById(id);
-
                 if (product != null)
                 {
                     cart.Add(new CartItem
                     {
                         ProductId = id,
-                        ProductName = product.Name, // Entity'deki isimle aynı olmalı
+                        ProductName = product.Name,
                         Price = product.Price,
+                        ImageUrl = product.ImageUrl,
                         Quantity = 1
                     });
                 }
             }
 
-            // 3. Güncel listeyi Session'a geri yaz
             HttpContext.Session.SetJson("Cart", cart);
+            return RedirectToAction("Index", "Product");
+        }
 
-            // Ürün eklendikten sonra sepet sayfasına yönlendir
+        // --- EKSİK OLAN METOTLAR BURADAN BAŞLIYOR ---
+
+        public IActionResult IncreaseQuantity(int id)
+        {
+            var cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+            var item = cart?.FirstOrDefault(x => x.ProductId == id);
+
+            if (item != null)
+            {
+                item.Quantity++;
+                HttpContext.Session.SetJson("Cart", cart);
+            }
+            return RedirectToAction("Index"); // Sepet sayfasına geri döner
+        }
+
+        public IActionResult DecreaseQuantity(int id)
+        {
+            var cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+            var item = cart?.FirstOrDefault(x => x.ProductId == id);
+
+            if (item != null)
+            {
+                if (item.Quantity > 1)
+                {
+                    item.Quantity--;
+                }
+                else
+                {
+                    cart.Remove(item); // Adet 1 ise ve eksiye basılırsa siler
+                }
+                HttpContext.Session.SetJson("Cart", cart);
+            }
             return RedirectToAction("Index");
         }
 
-        // Sepetten Ürün Sil
+        // --- EKSİK OLAN METOTLAR BURADA BİTTİ ---
+
         public IActionResult RemoveFromCart(int id)
         {
             var cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
-
             if (cart != null)
             {
                 var item = cart.FirstOrDefault(x => x.ProductId == id);
@@ -76,7 +100,6 @@ namespace DesignPatterns.Controllers
                 }
                 HttpContext.Session.SetJson("Cart", cart);
             }
-
             return RedirectToAction("Index");
         }
     }
