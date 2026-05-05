@@ -1,9 +1,11 @@
 using DesignPatterns.Context;
+using DesignPatterns.DesignPatterns.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddDbContext<BankContext>();
 
 var app = builder.Build();

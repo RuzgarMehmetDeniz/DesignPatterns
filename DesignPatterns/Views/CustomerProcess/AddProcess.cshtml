@@ -1,0 +1,53 @@
+﻿@model DesignPatterns.Entites.CustomerProcess
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Yeni İşlem Ekle</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">Yeni Dinamik Veri Kaydı</h3>
+            </div>
+            <div class="card-body">
+                <form asp-action="AddProcess" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label>Müşteri Adı</label>
+                        <input asp-for="CustomerName" class="form-control" placeholder="Müşteri adını giriniz" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>İşlem Tutarı (₺)</label>
+                        <input asp-for="Amount" type="number" step="0.01" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sorumlu Personel</label>
+                        <input asp-for="EmployeeName" class="form-control" placeholder="Personel ismi" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success">İşlemi Kaydet (Chain of Responsibility)</button>
+                        <a href="/CustomerProcess/Index" class="btn btn-secondary">Listeye Dön</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
