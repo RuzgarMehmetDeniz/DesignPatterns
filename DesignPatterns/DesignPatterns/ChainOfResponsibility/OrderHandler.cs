@@ -9,6 +9,6 @@
             NextHandler = nextHandler;
         }
 
-        public abstract void Handle(int productId, int quantity, decimal userBalance);
+        public abstract void Handle(Entites.CustomerProcess process);
     }
 }
