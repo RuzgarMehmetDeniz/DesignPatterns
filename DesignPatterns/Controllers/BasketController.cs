@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DesignPatterns.DesignPatterns.ChainOfResponsibility;
+using DesignPatterns.DesignPatterns.Observer;
+using DesignPatterns.DesignPatterns.Strategy;
 using DesignPatterns.DesignPatterns.UnitOfWork;
-using DesignPatterns.Models;
+using DesignPatterns.Entites;
 using DesignPatterns.Extensions;
+using DesignPatterns.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -101,6 +105,111 @@ namespace DesignPatterns.Controllers
                 HttpContext.Session.SetJson("Cart", cart);
             }
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            var cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+
+            if (!cart.Any())
+            {
+                return RedirectToAction("Index", "Product");
+            }
+
+            var model = new CheckoutViewModel
+            {
+                CartItems = cart
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(CheckoutViewModel model, string paymentType)
+        {
+            // 1. Session üzerinden mevcut sepeti alıyoruz
+            var cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+
+            if (cart == null || !cart.Any())
+            {
+                return RedirectToAction("Index", "Product");
+            }
+
+            // 2. Toplam tutarı hesaplıyoruz
+            decimal totalAmount = cart.Sum(x => x.Price * x.Quantity);
+
+            // ---------------------------------------------------------
+            // 3. STRATEGY PATTERN: Ödeme Yöntemini Belirle
+            // ---------------------------------------------------------
+            var orderContext = new OrderContext();
+
+            if (paymentType == "CreditCard")
+            {
+                orderContext.SetStrategy(new CreditCardStrategy());
+            }
+            else
+            {
+                orderContext.SetStrategy(new BankTransferStrategy());
+            }
+
+            string paymentStatus = orderContext.Execute(totalAmount);
+
+            // ---------------------------------------------------------
+            // 4. CHAIN OF RESPONSIBILITY: Yetkili Atamasını Yap
+            // ---------------------------------------------------------
+            var cashier = new CashierHandler();
+            var assistantManager = new AssistantManagerHandler();
+            var manager = new ManagerHandler();
+            var regionalManager = new RegionalManagerHandler();
+
+            cashier.SetNextHandler(assistantManager);
+            assistantManager.SetNextHandler(manager);
+            manager.SetNextHandler(regionalManager);
+
+            string assignedEmployee = cashier.ProcessRequest(totalAmount);
+
+            // ---------------------------------------------------------
+            // 5. MÜŞTERİ İŞLEMİ (ENTITY) HAZIRLAMA
+            // ---------------------------------------------------------
+            var process = new CustomerProcess
+            {
+                CustomerName = model.FullName,
+                Amount = totalAmount,
+                EmployeeName = assignedEmployee,
+                Description = $"{paymentStatus} | Ürünler: " + string.Join(", ", cart.Select(x => $"{x.ProductName} ({x.Quantity} Adet)"))
+            };
+
+            // ---------------------------------------------------------
+            // 6. UNIT OF WORK: Veritabanı İşlemleri
+            // ---------------------------------------------------------
+            _unitOfWork.CustomerProcesses.Add(process);
+            _unitOfWork.Save(); // Önce kaydetmeliyiz ki ID oluşsun ve Observer'a dolu gitsin
+
+            // ---------------------------------------------------------
+            // 7. OBSERVER PATTERN: Bildirimleri Uçur! [yeni eklenen]
+            // ---------------------------------------------------------
+            var observerObject = new ObserverObject();
+
+            // Kayıtlı olan gözlemcileri listeye ekle
+            observerObject.RegisterObserver(new WelcomeMessageObserver());
+
+            // İleride SmsObserver veya LogObserver yazarsan buraya tek satır eklersin
+            // observerObject.RegisterObserver(new LogObserver());
+
+            // Tüm gözlemcilere "işlem tamamlandı" haberini ver
+            observerObject.NotifyObservers(process);
+
+            // ---------------------------------------------------------
+            // 8. TEMİZLİK VE YÖNLENDİRME
+            // ---------------------------------------------------------
+            HttpContext.Session.Remove("Cart");
+            TempData["Message"] = "Siparişiniz başarıyla alındı ve birimlere iletildi.";
+
+            return RedirectToAction("OrderComplete");
+        }
+        public IActionResult OrderComplete()
+        {
+            return View();
         }
     }
 }

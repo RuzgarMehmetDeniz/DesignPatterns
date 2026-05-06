@@ -29,38 +29,42 @@ namespace DesignPatterns.Controllers
             return View();
         }
 
-        // Yeni İşlem Ekleme (İşlem ve Zincir Tetikleme)
         [HttpPost]
         public IActionResult AddProcess(CustomerProcess customerProcess)
         {
             // 1. Zincirin Halkalarını Tanımla
             var cashier = new CashierHandler();
-            var manager = new ManagerHandler();
             var assistant = new AssistantManagerHandler();
+            var manager = new ManagerHandler();
             var regionalManager = new RegionalManagerHandler();
 
-            // 2. Hiyerarşiyi Birbirine Bağla (Kasiyer -> Müdür -> Asistan -> Bölge Müdürü)
-            cashier.SetNextHandler(manager);
-            manager.SetNextHandler(assistant);
-            assistant.SetNextHandler(regionalManager);
+            // 2. Hiyerarşiyi Mantıksal Sırayla Bağla (Tutar limitlerine göre)
+            // Kasiyer (500) -> Asistan (1000) -> Müdür (1500) -> Bölge Müdürü (1500+)
+            cashier.SetNextHandler(assistant);
+            assistant.SetNextHandler(manager);
+            manager.SetNextHandler(regionalManager);
 
             try
             {
-                // 3. Zinciri Başlat (Tüm nesneyi gönderiyoruz)
-                // Bu metot içinde EmployeeName ve Description otomatik dolacak
-                cashier.Handle(customerProcess);
+                // 3. Zinciri Başlat 
+                // DİKKAT: Metot adını 'ProcessRequest' olarak güncelledik (Hata veren yer burasıydı)
+                // customerProcess.Amount değerine göre EmployeeName içeride dolacak
+                string approverName = cashier.ProcessRequest(customerProcess.Amount);
 
-                // 4. Eğer hiçbir hata (Exception) fırlatılmadıysa veriyi kaydet
+                // Atanan ismi entity'ye set et
+                customerProcess.EmployeeName = approverName;
+
+                // 4. Veriyi Kaydet
                 _unitOfWork.CustomerProcesses.Add(customerProcess);
 
-                // Unit of Work ile veritabanına mühürle
+                // Unit of Work ile Save Et
                 _unitOfWork.Save();
 
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                // Zincirde bir engel çıkarsa (Örn: 10.000 TL üzeri tutar) hatayı yakala
+                // Zincirde bir hata oluşursa (örneğin limit aşımı) yakala
                 ModelState.AddModelError("", ex.Message);
                 return View(customerProcess);
             }

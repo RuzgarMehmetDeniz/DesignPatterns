@@ -2,17 +2,13 @@
 {
     public class ManagerHandler : OrderHandler
     {
-        public override void Handle(Entites.CustomerProcess process)
+        public override string ProcessRequest(decimal amount)
         {
-            if (process.Amount <= 1000)
+            if (amount > 1000 && amount <= 1500)
             {
-                process.EmployeeName = "Mağaza Müdürü - Selin Aydın";
-                process.Description = "100 TL üzeri işlem Mağaza Müdürü onayıyla gerçekleştirildi.";
+                return "Ahmet Müdür"; // İstediğin Ahmet Müdür senaryosu
             }
-            else if (NextHandler != null)
-            {
-                NextHandler.Handle(process);
-            }
+            return NextHandler?.ProcessRequest(amount) ?? "Onay Bekleniyor";
         }
     }
 }

@@ -1,0 +1,195 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sipariş Tamamlandı | Organik Dünyam</title>
+
+    <!-- Bootstrap & Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Dinamik Organik Gradyan */
+            background: linear-gradient(135deg, #f1f8e9 0%, #ffffff 50%, #e8f5e9 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Arka plandaki dekoratif daireler */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4caf50, #81c784);
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            left: -100px;
+        }
+
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 40px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            width: 90%;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .success-icon-container {
+            width: 120px;
+            height: 120px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.1);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            background: linear-gradient(45deg, #2e7d32, #66bb6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: bounceIn 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        h1 {
+            color: #1b5e20;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #4a5568;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(46, 125, 50, 0.1);
+            color: #2e7d32;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-premium {
+            background: linear-gradient(45deg, #2e7d32, #43a047);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.2);
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+            .btn-premium:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 15px 35px rgba(46, 125, 50, 0.3);
+                color: white;
+                filter: brightness(1.1);
+            }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes bounceIn {
+            0% {
+                transform: scale(0);
+            }
+
+            60% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+
+    <div class="glass-card">
+        <div class="success-icon-container">
+            <i class="fas fa-check-circle success-icon"></i>
+        </div>
+
+        <h1>Harika Haber!</h1>
+
+        <p>
+            Siparişiniz başarıyla işlendi ve mutfağımıza ulaştı.<br>
+            Taze ürünleriniz yola çıkmak üzere hazırlanıyor.
+        </p>
+
+        <div class="status-badge">
+            <i class="fas fa-sync-alt fa-spin me-2"></i> Dinamik Veri Yönetim Paneli'ne Aktarıldı
+        </div>
+
+        <div class="d-grid gap-3">
+            <a href="/Default/Index" class="btn btn-premium">
+                <i class="fas fa-shopping-basket me-2"></i> ALIŞVERİŞE DEVAM ET
+            </a>
+        </div>
+
+        <footer class="mt-5 pt-3 border-top" style="border-color: rgba(0,0,0,0.05) !important;">
+            <p class="small text-muted mb-0">Bizi tercih ettiğiniz için teşekkür ederiz.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -9,6 +9,6 @@
             NextHandler = nextHandler;
         }
 
-        public abstract void Handle(Entites.CustomerProcess process);
+        public abstract string ProcessRequest(decimal amount);
     }
 }

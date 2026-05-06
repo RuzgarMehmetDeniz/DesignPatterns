@@ -2,17 +2,13 @@
 {
     public class AssistantManagerHandler : OrderHandler
     {
-        public override void Handle(Entites.CustomerProcess process)
+        public override string ProcessRequest(decimal amount)
         {
-            if (process.Amount <= 5000)
+            if (amount > 500 && amount <= 1000)
             {
-                process.EmployeeName = "Bölge Asistanı - Mehmet Rüzgar";
-                process.Description = "Yüksek tutarlı işlem için Bölge Asistanı onayı alındı.";
+                return "Müdür Yardımcısı Selin";
             }
-            else if (NextHandler != null)
-            {
-                NextHandler.Handle(process);
-            }
+            return NextHandler?.ProcessRequest(amount) ?? "Onay Bekleniyor";
         }
     }
 }

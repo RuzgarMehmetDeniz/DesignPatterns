@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="DesignPatterns\Decorator\" />
     <Folder Include="DesignPatterns\Builder\" />
-    <Folder Include="DesignPatterns\Strategy\" />
   </ItemGroup>
 
 </Project>

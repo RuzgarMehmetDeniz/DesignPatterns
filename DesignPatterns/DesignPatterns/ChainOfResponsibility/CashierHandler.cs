@@ -2,17 +2,13 @@
 {
     public class CashierHandler : OrderHandler
     {
-        public override void Handle(Entites.CustomerProcess process)
+        public override string ProcessRequest(decimal amount)
         {
-            if (process.Amount <= 100)
+            if (amount <= 500)
             {
-                process.EmployeeName = "Kasiyer - Ahmet Yılmaz";
-                process.Description = "İşlem tutarı limit dahilinde olduğu için kasiyer tarafından onaylandı.";
+                return "Kasiyer Mehmet";
             }
-            else if (NextHandler != null)
-            {
-                NextHandler.Handle(process);
-            }
+            return NextHandler?.ProcessRequest(amount) ?? "Onay Bekleniyor";
         }
     }
 }
