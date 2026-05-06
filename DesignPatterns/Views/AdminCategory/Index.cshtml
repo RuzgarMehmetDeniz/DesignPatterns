@@ -1,0 +1,1397 @@
+﻿@{
+    Layout = null;
+}
+
+<!-- Bootstrap 5 & FontAwesome CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --green-primary: #8bc34a;
+        --green-dark: #689f38;
+        --green-light: #aed581;
+        --green-ultra-light: #f1f8e9;
+        --green-glow: rgba(139, 195, 74, 0.25);
+        --sidebar-bg: #1a2410;
+        --sidebar-width: 265px;
+        --sidebar-collapsed: 72px;
+        --glass-bg: rgba(255, 255, 255, 0.72);
+        --glass-border: rgba(255, 255, 255, 0.9);
+        --shadow-soft: 0 8px 32px rgba(104, 159, 56, 0.12);
+        --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.07);
+        --gray-200: #eeeeee;
+        --gray-400: #bdbdbd;
+        --gray-600: #757575;
+        --gray-800: #424242;
+        --radius-lg: 20px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+        --font-body: 'DM Sans', sans-serif;
+        --font-display: 'Playfair Display', serif;
+    }
+
+    /* ══════════════════════════════
+           LAYOUT SHELL
+        ══════════════════════════════ */
+    .admin-shell {
+        display: flex;
+        min-height: 100vh;
+        font-family: var(--font-body);
+        background: linear-gradient(160deg, #f9fdf4 0%, #f4f9ee 40%, #fafffe 100%);
+    }
+
+    /* ══════════════════════════════
+           SIDEBAR
+        ══════════════════════════════ */
+    .km-sidebar {
+        width: var(--sidebar-width);
+        min-height: 100vh;
+        background: var(--sidebar-bg);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+        transition: width 0.3s cubic-bezier(.4,0,.2,1);
+        overflow: hidden;
+        box-shadow: 4px 0 32px rgba(0,0,0,0.18);
+    }
+
+        /* Subtle green top accent line */
+        .km-sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green-primary), var(--green-light));
+        }
+
+    /* Brand */
+    .km-sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 1.6rem 1.4rem 1.3rem;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        text-decoration: none;
+        flex-shrink: 0;
+    }
+
+    .km-brand-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 14px var(--green-glow);
+    }
+
+        .km-brand-logo i {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+    .km-brand-text {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .km-brand-name {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.1;
+        letter-spacing: -0.2px;
+    }
+
+    .km-brand-tagline {
+        font-size: 0.68rem;
+        color: rgba(139,195,74,0.75);
+        font-weight: 500;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+    }
+
+    /* Nav sections */
+    .km-sidebar-nav {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 1rem 0;
+        scrollbar-width: none;
+    }
+
+        .km-sidebar-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+    .km-nav-section-label {
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: rgba(255,255,255,0.28);
+        padding: 0.8rem 1.4rem 0.4rem;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .km-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 0.72rem 1.4rem;
+        text-decoration: none;
+        color: rgba(255,255,255,0.58);
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 0;
+        transition: all 0.18s ease;
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 1px 0.7rem;
+        border-radius: 10px;
+    }
+
+        .km-nav-item:hover {
+            background: rgba(139,195,74,0.1);
+            color: rgba(255,255,255,0.88);
+        }
+
+        .km-nav-item.active {
+            background: linear-gradient(135deg, rgba(139,195,74,0.22), rgba(104,159,56,0.15));
+            color: #fff;
+            box-shadow: inset 0 0 0 1px rgba(139,195,74,0.25);
+        }
+
+            .km-nav-item.active::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 3.5px;
+                height: 60%;
+                background: var(--green-primary);
+                border-radius: 0 4px 4px 0;
+            }
+
+    .km-nav-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 0.88rem;
+        transition: background 0.18s;
+    }
+
+    .km-nav-item.active .km-nav-icon {
+        background: rgba(139,195,74,0.2);
+        color: var(--green-light);
+    }
+
+    .km-nav-item:hover .km-nav-icon {
+        background: rgba(255,255,255,0.06);
+    }
+
+    .km-nav-label {
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .km-nav-badge {
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0.15rem 0.5rem;
+        border-radius: 20px;
+        background: var(--green-primary);
+        color: #1a2410;
+        flex-shrink: 0;
+    }
+
+    /* Sidebar divider */
+    .km-sidebar-divider {
+        height: 1px;
+        background: rgba(255,255,255,0.06);
+        margin: 0.6rem 1.4rem;
+    }
+
+    /* Sidebar footer (user info) */
+    .km-sidebar-footer {
+        padding: 1rem 1.1rem;
+        border-top: 1px solid rgba(255,255,255,0.07);
+        flex-shrink: 0;
+    }
+
+    .km-user-card {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.65rem 0.7rem;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.07);
+        text-decoration: none;
+        transition: background 0.18s;
+        overflow: hidden;
+    }
+
+        .km-user-card:hover {
+            background: rgba(255,255,255,0.09);
+        }
+
+    .km-user-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #fff;
+        flex-shrink: 0;
+    }
+
+    .km-user-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: rgba(255,255,255,0.88);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .km-user-role {
+        font-size: 0.68rem;
+        color: rgba(139,195,74,0.7);
+        font-weight: 500;
+    }
+
+    .km-user-chevron {
+        margin-left: auto;
+        color: rgba(255,255,255,0.3);
+        font-size: 0.65rem;
+        flex-shrink: 0;
+    }
+
+    /* Sidebar toggle button */
+    .km-sidebar-toggle {
+        display: none; /* shown on mobile */
+    }
+
+    /* ══════════════════════════════
+           MAIN CONTENT AREA
+        ══════════════════════════════ */
+    .km-main {
+        margin-left: var(--sidebar-width);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        transition: margin-left 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* Top navbar */
+    .km-topnav {
+        position: sticky;
+        top: 0;
+        z-index: 90;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.9rem 2rem;
+        background: rgba(249,253,244,0.85);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border-bottom: 1px solid rgba(139,195,74,0.12);
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .km-breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.82rem;
+        color: var(--gray-600);
+    }
+
+        .km-breadcrumb a {
+            color: var(--gray-600);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+            .km-breadcrumb a:hover {
+                color: var(--green-dark);
+            }
+
+    .km-breadcrumb-sep {
+        color: var(--gray-400);
+        font-size: 0.7rem;
+    }
+
+    .km-breadcrumb-current {
+        color: var(--gray-800);
+        font-weight: 600;
+    }
+
+    .km-topnav-right {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .km-topnav-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1.5px solid var(--gray-200);
+        background: rgba(255,255,255,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: var(--gray-600);
+        font-size: 0.85rem;
+        transition: all 0.18s;
+        position: relative;
+    }
+
+        .km-topnav-btn:hover {
+            border-color: var(--green-primary);
+            color: var(--green-dark);
+            background: var(--green-ultra-light);
+        }
+
+    .km-notif-dot {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #f44336;
+        border: 1.5px solid #f9fdf4;
+    }
+
+    /* Page content wrapper */
+    .km-content {
+        flex: 1;
+        padding: 2rem 2rem 3rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Decorative orbs */
+    .km-orb {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+        filter: blur(70px);
+        opacity: 0.3;
+    }
+
+    .km-orb-1 {
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(circle, #c5e1a5, transparent 70%);
+        top: -60px;
+        right: 80px;
+    }
+
+    .km-orb-2 {
+        width: 240px;
+        height: 240px;
+        background: radial-gradient(circle, #dcedc8, transparent 70%);
+        bottom: 80px;
+        right: 20%;
+    }
+
+    /* ══════════════════════════════
+           PANEL CONTENT (original styles)
+        ══════════════════════════════ */
+    .km-panel-root {
+        position: relative;
+        z-index: 1;
+    }
+
+    .km-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+        animation: fadeSlideUp 0.45s ease both;
+    }
+
+    .km-header-left {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+    }
+
+    .km-icon-badge {
+        width: 52px;
+        height: 52px;
+        border-radius: 15px;
+        background: linear-gradient(135deg, var(--green-primary) 0%, var(--green-dark) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 20px var(--green-glow);
+        flex-shrink: 0;
+    }
+
+        .km-icon-badge i {
+            font-size: 1.25rem;
+            color: #fff;
+        }
+
+    .km-title {
+        font-family: var(--font-display);
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--gray-800);
+        line-height: 1.15;
+        margin: 0;
+        letter-spacing: -0.3px;
+    }
+
+    .km-subtitle {
+        font-size: 0.8rem;
+        color: var(--gray-600);
+        margin: 2px 0 0;
+        font-weight: 400;
+    }
+
+    .km-btn-add {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.72rem 1.5rem;
+        background: linear-gradient(135deg, var(--green-primary) 0%, var(--green-dark) 100%);
+        color: #fff;
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.875rem;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        box-shadow: 0 4px 18px var(--green-glow);
+        border: 1.5px solid rgba(255,255,255,0.25);
+        transition: all 0.22s ease;
+        white-space: nowrap;
+    }
+
+        .km-btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(139,195,74,0.38);
+            color: #fff;
+        }
+
+        .km-btn-add i {
+            font-size: 0.85rem;
+        }
+
+    .km-stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+        animation: fadeSlideUp 0.45s 0.1s ease both;
+    }
+
+    .km-stat-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1.5px solid var(--glass-border);
+        border-radius: var(--radius-md);
+        padding: 1.2rem 1.2rem;
+        box-shadow: var(--shadow-card);
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .km-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green-primary), var(--green-light));
+        }
+
+        .km-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 32px rgba(104,159,56,0.14);
+        }
+
+    .km-stat-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 11px;
+        background: var(--green-ultra-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+        .km-stat-icon i {
+            color: var(--green-dark);
+            font-size: 0.95rem;
+        }
+
+    .km-stat-value {
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: var(--gray-800);
+        line-height: 1;
+        font-family: var(--font-display);
+    }
+
+    .km-stat-label {
+        font-size: 0.7rem;
+        color: var(--gray-600);
+        font-weight: 500;
+        margin-top: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .km-table-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px) saturate(200%);
+        -webkit-backdrop-filter: blur(20px) saturate(200%);
+        border: 1.5px solid var(--glass-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-soft), 0 2px 8px rgba(0,0,0,0.04);
+        overflow: hidden;
+        animation: fadeSlideUp 0.45s 0.2s ease both;
+    }
+
+    .km-table-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.3rem 1.8rem;
+        border-bottom: 1.5px solid rgba(139,195,74,0.12);
+        background: linear-gradient(135deg, rgba(241,248,233,0.6) 0%, rgba(255,255,255,0.4) 100%);
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .km-table-title {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--gray-800);
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+    }
+
+        .km-table-title i {
+            color: var(--green-primary);
+        }
+
+    .km-search-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+        .km-search-wrap i {
+            position: absolute;
+            left: 12px;
+            color: var(--gray-400);
+            font-size: 0.8rem;
+            pointer-events: none;
+        }
+
+    .km-search-input {
+        padding: 0.5rem 1rem 0.5rem 2.2rem;
+        border: 1.5px solid var(--gray-200);
+        border-radius: var(--radius-sm);
+        font-family: var(--font-body);
+        font-size: 0.83rem;
+        color: var(--gray-800);
+        background: rgba(255,255,255,0.8);
+        width: 200px;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+        .km-search-input:focus {
+            border-color: var(--green-primary);
+            box-shadow: 0 0 0 3px var(--green-glow);
+            background: #fff;
+        }
+
+        .km-search-input::placeholder {
+            color: var(--gray-400);
+        }
+
+    .km-table-wrap {
+        overflow-x: auto;
+    }
+
+    .km-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .km-table thead tr th {
+            padding: 0.85rem 1.4rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: var(--gray-600);
+            background: rgba(241,248,233,0.5);
+            border-bottom: 1.5px solid rgba(139,195,74,0.10);
+            white-space: nowrap;
+        }
+
+            .km-table thead tr th:first-child {
+                padding-left: 2rem;
+            }
+
+            .km-table thead tr th:last-child {
+                text-align: center;
+            }
+
+        .km-table tbody tr {
+            transition: background 0.18s ease;
+        }
+
+            .km-table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+            .km-table tbody tr:hover {
+                background: rgba(139,195,74,0.055);
+            }
+
+            .km-table tbody tr td {
+                padding: 1rem 1.4rem;
+                font-size: 0.875rem;
+                color: var(--gray-800);
+                vertical-align: middle;
+                border-bottom: 1px solid rgba(0,0,0,0.038);
+            }
+
+                .km-table tbody tr td:first-child {
+                    padding-left: 2rem;
+                }
+
+                .km-table tbody tr td:last-child {
+                    text-align: center;
+                }
+
+    .km-id-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+        border: 1.5px solid rgba(139,195,74,0.22);
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--green-dark);
+    }
+
+    .km-cat-cell {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .km-cat-emoji {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(139,195,74,0.15), rgba(174,213,129,0.2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+        border: 1.5px solid rgba(139,195,74,0.18);
+    }
+
+    .km-cat-name {
+        font-weight: 600;
+        font-size: 0.88rem;
+        color: var(--gray-800);
+        line-height: 1.2;
+    }
+
+    .km-cat-slug {
+        font-size: 0.7rem;
+        color: var(--gray-400);
+        font-weight: 400;
+    }
+
+    .km-desc-text {
+        font-size: 0.81rem;
+        color: var(--gray-600);
+        font-weight: 400;
+        max-width: 250px;
+        line-height: 1.45;
+    }
+
+    .km-count-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.28rem 0.72rem;
+        border-radius: 30px;
+        font-size: 0.77rem;
+        font-weight: 600;
+        background: linear-gradient(135deg, rgba(139,195,74,0.14), rgba(174,213,129,0.18));
+        color: var(--green-dark);
+        border: 1.5px solid rgba(139,195,74,0.2);
+    }
+
+        .km-count-badge i {
+            font-size: 0.65rem;
+        }
+
+    .km-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        justify-content: center;
+    }
+
+    .km-btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.42rem 0.88rem;
+        border-radius: var(--radius-sm);
+        font-family: var(--font-body);
+        font-size: 0.76rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        border: 1.5px solid transparent;
+    }
+
+        .km-btn-action i {
+            font-size: 0.7rem;
+        }
+
+    .km-btn-edit {
+        background: rgba(33,150,243,0.09);
+        color: #1976d2;
+        border-color: rgba(33,150,243,0.18);
+    }
+
+        .km-btn-edit:hover {
+            background: #1976d2;
+            color: #fff;
+            border-color: #1976d2;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(25,118,210,0.28);
+        }
+
+    .km-btn-delete {
+        background: rgba(244,67,54,0.08);
+        color: #d32f2f;
+        border-color: rgba(244,67,54,0.16);
+    }
+
+        .km-btn-delete:hover {
+            background: #d32f2f;
+            color: #fff;
+            border-color: #d32f2f;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(211,47,47,0.28);
+        }
+
+    .km-table-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        border-top: 1.5px solid rgba(139,195,74,0.10);
+        background: rgba(241,248,233,0.3);
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .km-footer-info {
+        font-size: 0.78rem;
+        color: var(--gray-600);
+    }
+
+        .km-footer-info strong {
+            color: var(--gray-800);
+            font-weight: 600;
+        }
+
+    .km-status-dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green-primary);
+        margin-right: 6px;
+        box-shadow: 0 0 0 2px rgba(139,195,74,0.22);
+        animation: pulse-dot 2s infinite;
+    }
+
+    .km-pagination {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .km-page-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.18s;
+        border: 1.5px solid transparent;
+        color: var(--gray-600);
+        background: transparent;
+    }
+
+        .km-page-btn:hover {
+            background: rgba(139,195,74,0.1);
+            border-color: rgba(139,195,74,0.2);
+            color: var(--green-dark);
+        }
+
+        .km-page-btn.active {
+            background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 2px 8px var(--green-glow);
+        }
+
+    /* ══════════════════════════════
+           ANIMATIONS
+        ══════════════════════════════ */
+    @@keyframes fadeSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes pulse-dot {
+        0%, 100% {
+            box-shadow: 0 0 0 2px rgba(139,195,74,0.22);
+        }
+
+        50% {
+            box-shadow: 0 0 0 5px rgba(139,195,74,0.10);
+        }
+    }
+
+    .km-sidebar {
+        animation: fadeSlideUp 0.4s ease both;
+    }
+
+    /* ══════════════════════════════
+           MOBILE SIDEBAR TOGGLE
+        ══════════════════════════════ */
+    .km-mobile-toggle {
+        display: none;
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 200;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+        border: none;
+        color: #fff;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 6px 20px var(--green-glow);
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* ══════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════ */
+    @@media (max-width: 1024px) {
+        .km-sidebar {
+            width: var(--sidebar-collapsed);
+        }
+
+        .km-brand-text,
+        .km-nav-label,
+        .km-nav-badge,
+        .km-nav-section-label,
+        .km-user-name,
+        .km-user-role,
+        .km-user-chevron {
+            display: none;
+        }
+
+        .km-sidebar-brand {
+            justify-content: center;
+            padding: 1.3rem 0.8rem;
+        }
+
+        .km-nav-item {
+            justify-content: center;
+            padding: 0.72rem;
+            margin: 1px 0.5rem;
+        }
+
+            .km-nav-item.active::before {
+                display: none;
+            }
+
+        .km-nav-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .km-user-card {
+            justify-content: center;
+            padding: 0.6rem;
+        }
+
+        .km-main {
+            margin-left: var(--sidebar-collapsed);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .km-sidebar {
+            transform: translateX(-100%);
+            width: var(--sidebar-width);
+        }
+
+            .km-sidebar.open {
+                transform: translateX(0);
+                /* Show all labels again */
+            }
+
+                .km-sidebar.open .km-brand-text,
+                .km-sidebar.open .km-nav-label,
+                .km-sidebar.open .km-nav-badge,
+                .km-sidebar.open .km-nav-section-label,
+                .km-sidebar.open .km-user-name,
+                .km-sidebar.open .km-user-role,
+                .km-sidebar.open .km-user-chevron {
+                    display: block;
+                }
+
+                .km-sidebar.open .km-nav-item {
+                    justify-content: flex-start;
+                }
+
+                .km-sidebar.open .km-user-card {
+                    justify-content: flex-start;
+                }
+
+                .km-sidebar.open .km-sidebar-brand {
+                    justify-content: flex-start;
+                }
+
+        .km-mobile-toggle {
+            display: flex;
+        }
+
+        .km-main {
+            margin-left: 0;
+        }
+
+        .km-content {
+            padding: 1.5rem 1rem;
+        }
+
+        .km-topnav {
+            padding: 0.75rem 1rem;
+        }
+
+        .km-title {
+            font-size: 1.4rem;
+        }
+    }
+</style>
+
+<!-- ═══════════════════════════════════════
+     ADMIN SHELL LAYOUT
+═══════════════════════════════════════ -->
+<div class="admin-shell">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="km-sidebar" id="kmSidebar">
+
+        <!-- Brand -->
+        <a href="/Admin" class="km-sidebar-brand">
+            <div class="km-brand-logo"><i class="fa-solid fa-seedling"></i></div>
+            <div class="km-brand-text">
+                <div class="km-brand-name">OrganikMarket</div>
+                <div class="km-brand-tagline">Admin Paneli</div>
+            </div>
+        </a>
+
+        <!-- Navigation -->
+        <nav class="km-sidebar-nav">
+
+            <div class="km-nav-section-label">Ana Menü</div>
+
+            <a href="/Admin/Dashboard" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                <span class="km-nav-label">Dashboard</span>
+            </a>
+
+            <a href="/Admin/Product" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-box-open"></i></div>
+                <span class="km-nav-label">Ürünler</span>
+                <span class="km-nav-badge">287</span>
+            </a>
+
+            <a href="/Admin/Category" class="km-nav-item active">
+                <div class="km-nav-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <span class="km-nav-label">Kategoriler</span>
+            </a>
+
+            <a href="/Admin/Order" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                <span class="km-nav-label">Siparişler</span>
+                <span class="km-nav-badge">12</span>
+            </a>
+
+            <div class="km-sidebar-divider"></div>
+            <div class="km-nav-section-label">Müşteri</div>
+
+            <a href="/Admin/Customer" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-users"></i></div>
+                <span class="km-nav-label">Müşteriler</span>
+            </a>
+
+            <a href="/Admin/Review" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-star"></i></div>
+                <span class="km-nav-label">Değerlendirmeler</span>
+            </a>
+
+            <div class="km-sidebar-divider"></div>
+            <div class="km-nav-section-label">Sistem</div>
+
+            <a href="/Admin/Report" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <span class="km-nav-label">Raporlar</span>
+            </a>
+
+            <a href="/Admin/Settings" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-gear"></i></div>
+                <span class="km-nav-label">Ayarlar</span>
+            </a>
+
+            <a href="/Admin/Logout" class="km-nav-item" style="margin-top: 0.3rem;">
+                <div class="km-nav-icon" style="color: rgba(244,67,54,0.7)"><i class="fa-solid fa-right-from-bracket"></i></div>
+                <span class="km-nav-label" style="color: rgba(244,67,54,0.7)">Çıkış Yap</span>
+            </a>
+
+        </nav>
+
+        <!-- User footer -->
+        <div class="km-sidebar-footer">
+            <a href="/Admin/Profile" class="km-user-card">
+                <div class="km-user-avatar">AY</div>
+                <div>
+                    <div class="km-user-name">Admin Yönetici</div>
+                    <div class="km-user-role">Süper Admin</div>
+                </div>
+                <i class="fa-solid fa-ellipsis-vertical km-user-chevron"></i>
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- ── MAIN ── -->
+    <div class="km-main">
+
+        <!-- Top Navbar -->
+        <div class="km-topnav">
+            <div class="km-breadcrumb">
+                <a href="/Admin"><i class="fa-solid fa-house" style="font-size:0.75rem"></i></a>
+                <span class="km-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></span>
+                <a href="/Admin">Yönetim</a>
+                <span class="km-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></span>
+                <span class="km-breadcrumb-current">Kategoriler</span>
+            </div>
+            <div class="km-topnav-right">
+                <a href="/Admin/Notifications" class="km-topnav-btn">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="km-notif-dot"></span>
+                </a>
+                <a href="/Admin/Search" class="km-topnav-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+                <a href="/Admin/Profile" class="km-topnav-btn">
+                    <i class="fa-solid fa-circle-user"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="km-content">
+
+            <!-- Orbs -->
+            <div class="km-orb km-orb-1"></div>
+            <div class="km-orb km-orb-2"></div>
+
+            <div class="km-panel-root">
+
+                <!-- ── Header ── -->
+                <div class="km-header">
+                    <div class="km-header-left">
+                        <div class="km-icon-badge">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <div>
+                            <h1 class="km-title">Kategori Yönetimi</h1>
+                            <p class="km-subtitle">Dinamik Veri Yönetim Paneli &mdash; Organik Market</p>
+                        </div>
+                    </div>
+                    <a href="/Admin/Category/Create" class="km-btn-add">
+                        <i class="fa-solid fa-plus"></i>
+                        Yeni Kategori Ekle
+                    </a>
+                </div>
+
+                <!-- ── Stats Row ── -->
+                <div class="km-stats-row">
+                    <div class="km-stat-card">
+                        <div class="km-stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <div>
+                            <div class="km-stat-value">5</div>
+                            <div class="km-stat-label">Toplam Kategori</div>
+                        </div>
+                    </div>
+                    <div class="km-stat-card">
+                        <div class="km-stat-icon"><i class="fa-solid fa-box-open"></i></div>
+                        <div>
+                            <div class="km-stat-value">287</div>
+                            <div class="km-stat-label">Toplam Ürün</div>
+                        </div>
+                    </div>
+                    <div class="km-stat-card">
+                        <div class="km-stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                        <div>
+                            <div class="km-stat-value">5</div>
+                            <div class="km-stat-label">Aktif Kategori</div>
+                        </div>
+                    </div>
+                    <div class="km-stat-card">
+                        <div class="km-stat-icon"><i class="fa-solid fa-chart-bar"></i></div>
+                        <div>
+                            <div class="km-stat-value">57</div>
+                            <div class="km-stat-label">Ort. Ürün / Kategori</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Table Card ── -->
+                <div class="km-table-card">
+
+                    <div class="km-table-topbar">
+                        <div class="km-table-title">
+                            <i class="fa-solid fa-table-list"></i>
+                            Kategori Listesi
+                        </div>
+                        <div class="km-search-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" class="km-search-input" placeholder="Kategori ara...">
+                        </div>
+                    </div>
+
+                    <div class="km-table-wrap">
+                        <table class="km-table">
+                            <thead>
+                                <tr>
+                                    <th>#ID</th>
+                                    <th>Kategori Adı</th>
+                                    <th>Açıklama</th>
+                                    <th>Ürün Sayısı</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="km-id-badge">01</span></td>
+                                    <td>
+                                        <div class="km-cat-cell">
+                                            <div class="km-cat-emoji">🍎</div>
+                                            <div>
+                                                <div class="km-cat-name">Meyveler</div>
+                                                <div class="km-cat-slug">meyveler</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="km-desc-text">Doğal tarım koşullarında yetiştirilen taze ve kurutulmuş organik meyveler.</span></td>
+                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 64 ürün</span></td>
+                                    <td>
+                                        <div class="km-actions">
+                                            <a href="/Admin/Category/Update/1" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
+                                            <a href="/Admin/Category/Delete/1" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="km-id-badge">02</span></td>
+                                    <td>
+                                        <div class="km-cat-cell">
+                                            <div class="km-cat-emoji">🥦</div>
+                                            <div>
+                                                <div class="km-cat-name">Sebzeler</div>
+                                                <div class="km-cat-slug">sebzeler</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="km-desc-text">Kimyasal gübre kullanılmadan, organik toprakta yetiştirilmiş taze sebzeler.</span></td>
+                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 81 ürün</span></td>
+                                    <td>
+                                        <div class="km-actions">
+                                            <a href="/Admin/Category/Update/2" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
+                                            <a href="/Admin/Category/Delete/2" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="km-id-badge">03</span></td>
+                                    <td>
+                                        <div class="km-cat-cell">
+                                            <div class="km-cat-emoji">🫘</div>
+                                            <div>
+                                                <div class="km-cat-name">Bakliyat</div>
+                                                <div class="km-cat-slug">bakliyat</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="km-desc-text">Protein açısından zengin; nohut, mercimek, fasulye ve daha fazlası.</span></td>
+                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 43 ürün</span></td>
+                                    <td>
+                                        <div class="km-actions">
+                                            <a href="/Admin/Category/Update/3" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
+                                            <a href="/Admin/Category/Delete/3" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="km-id-badge">04</span></td>
+                                    <td>
+                                        <div class="km-cat-cell">
+                                            <div class="km-cat-emoji">🧀</div>
+                                            <div>
+                                                <div class="km-cat-name">Süt Ürünleri</div>
+                                                <div class="km-cat-slug">sut-urunleri</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="km-desc-text">Sertifikalı organik çiftliklerden elde edilen süt, peynir ve yoğurt çeşitleri.</span></td>
+                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 58 ürün</span></td>
+                                    <td>
+                                        <div class="km-actions">
+                                            <a href="/Admin/Category/Update/4" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
+                                            <a href="/Admin/Category/Delete/4" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="km-id-badge">05</span></td>
+                                    <td>
+                                        <div class="km-cat-cell">
+                                            <div class="km-cat-emoji">🫒</div>
+                                            <div>
+                                                <div class="km-cat-name">Organik Yağlar</div>
+                                                <div class="km-cat-slug">organik-yaglar</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="km-desc-text">Soğuk sıkım zeytinyağı, hindistancevizi yağı ve diğer doğal bitkisel yağlar.</span></td>
+                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 41 ürün</span></td>
+                                    <td>
+                                        <div class="km-actions">
+                                            <a href="/Admin/Category/Update/5" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
+                                            <a href="/Admin/Category/Delete/5" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="km-table-footer">
+                        <div class="km-footer-info">
+                            <span class="km-status-dot"></span>
+                            Toplam <strong>5</strong> kategori gösteriliyor &mdash; Tüm veriler güncel
+                        </div>
+                        <div class="km-pagination">
+                            <a href="/Admin/Category?page=1" class="km-page-btn"><i class="fa-solid fa-chevron-left" style="font-size:0.62rem"></i></a>
+                            <a href="/Admin/Category?page=1" class="km-page-btn active">1</a>
+                            <a href="/Admin/Category?page=2" class="km-page-btn">2</a>
+                            <a href="/Admin/Category?page=3" class="km-page-btn">3</a>
+                            <a href="/Admin/Category?page=2" class="km-page-btn"><i class="fa-solid fa-chevron-right" style="font-size:0.62rem"></i></a>
+                        </div>
+                    </div>
+
+                </div><!-- /.km-table-card -->
+
+            </div><!-- /.km-panel-root -->
+        </div><!-- /.km-content -->
+    </div><!-- /.km-main -->
+
+</div><!-- /.admin-shell -->
+<!-- Mobile sidebar toggle (pure href navigation, no JS required for basic use) -->
+<button class="km-mobile-toggle" onclick="document.getElementById('kmSidebar').classList.toggle('open')" aria-label="Menüyü aç/kapat">
+    <i class="fa-solid fa-bars"></i>
+</button>
