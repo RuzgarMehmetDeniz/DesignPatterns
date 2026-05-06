@@ -1,0 +1,51 @@
+﻿@model DesignPatterns.Entites.AboutSection
+@{
+    ViewData["Title"] = "İçerik Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+            <div class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                    <h5 class="fw-bold m-0 text-primary">Hakkımızda İçeriğini Düzenle</h5>
+                    <span class="badge bg-soft-primary text-primary px-3 py-2 rounded-pill">ID: @Model.AboutSectionId</span>
+                </div>
+
+                <form asp-action="UpdateAbout" method="post">
+                    <input type="hidden" asp-for="AboutSectionId" />
+
+                    <div class="row g-3">
+                        <div class="col-12 text-center mb-3">
+                            <img src="@Model.ImageUrl" class="rounded shadow" style="max-height: 150px; border: 3px solid #fff;" />
+                        </div>
+                        <div class="col-12 text-center">
+                            <label class="form-label small fw-bold d-block">Görsel Yolu (Değiştirmek için URL girin)</label>
+                            <input type="text" asp-for="ImageUrl" class="form-control bg-light border-0 shadow-none text-center" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <label class="form-label small fw-bold">Başlık 1</label>
+                            <input type="text" asp-for="Title1" class="form-control bg-light border-0 shadow-none" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <label class="form-label small fw-bold">Başlık 2</label>
+                            <input type="text" asp-for="Title2" class="form-control bg-light border-0 shadow-none" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <label class="form-label small fw-bold">Açıklama Bölümü 1</label>
+                            <textarea asp-for="Description1" rows="5" class="form-control bg-light border-0 shadow-none" style="border-radius: 15px;"></textarea>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <label class="form-label small fw-bold">Açıklama Bölümü 2</label>
+                            <textarea asp-for="Description2" rows="4" class="form-control bg-light border-0 shadow-none" style="border-radius: 15px;"></textarea>
+                        </div>
+                        <div class="col-12 mt-5 text-end">
+                            <button type="submit" class="btn btn-primary rounded-pill px-5 py-2 shadow-sm">Değişiklikleri Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

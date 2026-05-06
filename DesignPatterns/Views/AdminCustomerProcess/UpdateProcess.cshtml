@@ -1,0 +1,39 @@
+﻿@model DesignPatterns.Entites.CustomerProcess
+@{
+    ViewData["Title"] = "İşlem Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-7">
+            <div class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
+                <h5 class="fw-bold mb-4 border-bottom pb-3 text-info">Süreç Bilgilerini Düzenle</h5>
+                <form asp-action="UpdateProcess" method="post">
+                    <input type="hidden" asp-for="CustomerProcessId" />
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Müşteri Adı</label>
+                            <input type="text" asp-for="CustomerName" class="form-control bg-light border-0 py-2" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Sorumlu Personel</label>
+                            <input type="text" asp-for="EmployeeName" class="form-control bg-light border-0 py-2" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Tutar</label>
+                            <input type="text" asp-for="Amount" class="form-control bg-light border-0 py-2 fw-bold" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Açıklama</label>
+                            <textarea asp-for="Description" rows="4" class="form-control bg-light border-0" style="border-radius: 12px;"></textarea>
+                        </div>
+                        <div class="col-12 mt-4 text-end">
+                            <button type="submit" class="btn btn-info text-white rounded-pill px-5 shadow-sm">Verileri Güncelle</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

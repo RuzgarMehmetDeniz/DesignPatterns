@@ -1,0 +1,43 @@
+﻿@model DesignPatterns.Entites.AboutSection
+@{
+    ViewData["Title"] = "Yeni Hakkımızda";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+            <div class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
+                <h5 class="fw-bold mb-4 border-bottom pb-3">Yeni Hakkımızda İçeriği</h5>
+                <form asp-action="CreateAbout" method="post">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Görsel URL</label>
+                            <input type="text" asp-for="ImageUrl" class="form-control bg-light border-0 shadow-none" placeholder="https://..." style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Üst Başlık</label>
+                            <input type="text" asp-for="Title1" class="form-control bg-light border-0 shadow-none" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Alt Başlık</label>
+                            <input type="text" asp-for="Title2" class="form-control bg-light border-0 shadow-none" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label small fw-bold">Ana Açıklama</label>
+                            <textarea asp-for="Description1" rows="4" class="form-control bg-light border-0 shadow-none" style="border-radius: 15px;"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label small fw-bold">Ek Açıklama</label>
+                            <textarea asp-for="Description2" rows="3" class="form-control bg-light border-0 shadow-none" style="border-radius: 15px;"></textarea>
+                        </div>
+                        <div class="col-12 mt-4 text-end">
+                            <a href="/AdminAbout/AboutList" class="btn btn-light rounded-pill px-4 me-2">İptal</a>
+                            <button type="submit" class="btn btn-success rounded-pill px-5">Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

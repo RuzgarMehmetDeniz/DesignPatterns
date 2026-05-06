@@ -1,0 +1,39 @@
+﻿@model DesignPatterns.Entites.Category
+@{
+    ViewData["Title"] = "Yeni Kategori";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg p-4" style="border-radius: 25px; background: rgba(255,255,255,0.7); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.3);">
+                <div class="text-center mb-4">
+                    <div class="icon-box bg-success text-white d-inline-block rounded-circle mb-3" style="width: 70px; height: 70px; line-height: 70px; font-size: 1.5rem;">
+                        <i class="fas fa-folder-plus"></i>
+                    </div>
+                    <h3 class="fw-bold">Yeni Kategori Ekle</h3>
+                    <p class="text-muted">Organik ürünleriniz için yeni bir başlık belirleyin.</p>
+                </div>
+
+                <form asp-action="CreateCategory" method="post">
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Kategori Adı</label>
+                        <input type="text" asp-for="Name" class="form-control form-control-lg shadow-sm border-0"
+                               placeholder="Örn: Mevsim Meyveleri" style="border-radius: 15px; background: rgba(255,255,255,0.9);">
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg shadow-sm" style="border-radius: 15px; font-weight: 600;">
+                            <i class="fas fa-save me-2"></i>Kategoriyi Kaydet
+                        </button>
+                        <a href="/AdminCategory/CategoryList" class="btn btn-link text-secondary text-decoration-none small">
+                            Vazgeç ve Listeye Dön
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

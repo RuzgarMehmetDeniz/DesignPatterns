@@ -1,0 +1,43 @@
+﻿@model DesignPatterns.Entites.Product
+@{
+    ViewData["Title"] = "Ürün Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-8">
+            <div class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
+                <h5 class="fw-bold mb-4 border-bottom pb-3">Ürün Bilgilerini Düzenle</h5>
+                <form asp-action="UpdateProduct" method="post">
+                    <input type="hidden" asp-for="ProductId" />
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Ürün Adı</label>
+                            <input type="text" asp-for="Name" class="form-control bg-light border-0 py-2" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Kategori</label>
+                            @Html.DropDownListFor(x => x.CategoryId, (SelectList)ViewBag.CategoryList, new { @class = "form-select bg-light border-0 py-2", style = "border-radius: 10px;" })
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Fiyat</label>
+                            <input type="text" asp-for="Price" class="form-control bg-light border-0 py-2" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Puan (Star)</label>
+                            <input type="text" asp-for="Star" class="form-control bg-light border-0 py-2" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Görsel URL</label>
+                            <input type="text" asp-for="ImageUrl" class="form-control bg-light border-0 py-2" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-12 mt-4 text-end">
+                            <button type="submit" class="btn btn-primary rounded-pill px-5 shadow">Güncelle</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

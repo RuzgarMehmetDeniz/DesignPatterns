@@ -1,0 +1,46 @@
+﻿@model List<DesignPatterns.Entites.CustomerProcess>
+@{
+    ViewData["Title"] = "Müşteri İşlemleri";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+        <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center p-4">
+            <h4 class="fw-bold m-0 text-dark"><i class="fas fa-exchange-alt me-2 text-primary"></i>Müşteri Süreç Yönetimi</h4>
+            <a href="/AdminCustomerProcess/CreateProcess" class="btn btn-primary btn-sm rounded-pill px-4 shadow-sm">
+                <i class="fas fa-plus me-2"></i>Yeni İşlem Kaydı
+            </a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-muted small">
+                        <tr>
+                            <th class="ps-4">Müşteri Adı</th>
+                            <th>Sorumlu Personel</th>
+                            <th class="text-end">Tutar</th>
+                            <th>Açıklama</th>
+                            <th class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 fw-semibold text-dark">@item.CustomerName</td>
+                                <td><span class="badge bg-soft-info text-info rounded-pill px-3">@item.EmployeeName</span></td>
+                                <td class="text-end fw-bold text-success">@item.Amount.ToString("C2")</td>
+                                <td><small class="text-muted">@item.Description</small></td>
+                                <td class="text-center">
+                                    <a href="/AdminCustomerProcess/UpdateProcess/@item.CustomerProcessId" class="btn btn-sm btn-outline-primary rounded-circle border-0"><i class="fas fa-edit"></i></a>
+                                    <a href="/AdminCustomerProcess/DeleteProcess/@item.CustomerProcessId" class="btn btn-sm btn-outline-danger rounded-circle border-0" onclick="return confirm('Bu işlemi silmek istediğinize emin misiniz?')"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

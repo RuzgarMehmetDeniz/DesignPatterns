@@ -1,0 +1,108 @@
+﻿@model DesignPatterns.Entites.Category
+@{
+    ViewData["Title"] = "Kategori Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<style>
+    .update-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at center, #ffffff 0%, #f8f9fa 100%);
+    }
+
+    .update-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        width: 100%;
+        max-width: 500px;
+        transition: all 0.3s ease;
+    }
+
+        .update-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+        }
+
+    .form-control-premium {
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid #eef2f7;
+        border-radius: 15px;
+        padding: 12px 20px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control-premium:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.15);
+            background: #fff;
+        }
+
+    .btn-update {
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        border: none;
+        border-radius: 15px;
+        padding: 12px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+        .btn-update:hover {
+            background: linear-gradient(135deg, #2980b9 0%, #1c598a 100%);
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(41, 128, 185, 0.3);
+            color: white;
+        }
+
+    .category-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(52, 152, 219, 0.1);
+        color: #3498db;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 0 auto 1.5rem;
+    }
+</style>
+
+<div class="update-container">
+    <div class="update-card p-5">
+        <div class="text-center">
+            <div class="category-icon">
+                <i class="fas fa-pen-nib"></i>
+            </div>
+            <h2 class="fw-bold text-dark mb-1">Kategoriyi Düzenle</h2>
+            <p class="text-muted small mb-4">Mevcut kategori bilgilerini buradan güncelleyebilirsiniz.</p>
+        </div>
+
+        <form asp-action="UpdateCategory" method="post">
+            <input type="hidden" asp-for="CategoryId" />
+
+            <div class="mb-4">
+                <label class="form-label small fw-bold text-secondary ps-2">Kategori Adı</label>
+                <input type="text" asp-for="Name" class="form-control form-control-premium" placeholder="Kategori adını giriniz...">
+                <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-update">
+                    <i class="fas fa-save me-2"></i>DEĞİŞİKLİKLERİ KAYDET
+                </button>
+                <a href="/AdminCategory/CategoryList" class="btn btn-light btn-sm text-secondary border-0 mt-2" style="border-radius: 12px;">
+                    <i class="fas fa-chevron-left me-1"></i> Listeye Geri Dön
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

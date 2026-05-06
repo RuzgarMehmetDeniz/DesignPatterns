@@ -1,55 +1,60 @@
-﻿using DesignPatterns.Context;
+﻿using DesignPatterns.DesignPatterns.UnitOfWork;
 using DesignPatterns.Entites;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace DesignPatterns.Controllers
 {
     public class AdminCategoryController : Controller
     {
-        private readonly BankContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AdminCategoryController(BankContext context)
+        // Context yerine IUnitOfWork enjekte ediyoruz
+        public AdminCategoryController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<IActionResult> CategoryList()
+        public IActionResult CategoryList()
         {
-            var value = await _context.Category.ToListAsync();
-            return View(value);
+            // Unit of Work üzerinden tüm kategorileri çekiyoruz
+            var values = _unitOfWork.Categories.GetAll();
+            return View(values);
         }
+
         [HttpGet]
         public IActionResult CreateCategory()
         {
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(Category category)
+        public IActionResult CreateCategory(Category category)
         {
-            await _context.Category.AddAsync(category);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("CategoryList");
+                _unitOfWork.Categories.Add(category);
+                _unitOfWork.Save(); // Tüm işlemler tek bir Save() ile biter
+                return RedirectToAction("CategoryList");
         }
+
         [HttpGet]
-        public async Task<IActionResult> UpdateCategory(int id)
+        public IActionResult UpdateCategory(int id)
         {
-            var value = await _context.Category.FindAsync(id);
+            var value = _unitOfWork.Categories.GetById(id);
             return View(value);
         }
+
         [HttpPost]
-        public async Task<IActionResult> UpdateCategory(Category category)
+        public IActionResult UpdateCategory(Category category)
         {
-            _context.Category.Update(category);
-            await _context.SaveChangesAsync();
+            _unitOfWork.Categories.Update(category);
+            _unitOfWork.Save();
             return RedirectToAction("CategoryList");
         }
-        public async Task<IActionResult> DeleteCategory(int id)
+
+        public IActionResult DeleteCategory(int id)
         {
-            var value = await _context.Category.FindAsync(id);
-            _context.Category.Remove(value);
-            await _context.SaveChangesAsync();
+            _unitOfWork.Categories.Delete(id);
+            _unitOfWork.Save();
             return RedirectToAction("CategoryList");
         }
     }

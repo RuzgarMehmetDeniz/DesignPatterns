@@ -1,0 +1,54 @@
+﻿@model List<DesignPatterns.Entites.Blog>
+@{
+    ViewData["Title"] = "Blog Yönetimi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+        <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center p-4">
+            <h4 class="fw-bold m-0">Blog Yazıları</h4>
+            <a href="/AdminBlog/CreateBlog" class="btn btn-dark btn-sm rounded-pill px-4">
+                <i class="fas fa-pen-fancy me-2"></i>Yeni Blog Yaz
+            </a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-muted small text-uppercase">
+                        <tr>
+                            <th class="ps-4">Görseller</th>
+                            <th>Başlıklar</th>
+                            <th>İçerik Özeti</th>
+                            <th class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex">
+                                        <img src="@item.ImageUrl1" class="rounded shadow-sm me-1" style="width: 50px; height: 35px; object-fit: cover;" title="Kapak">
+                                        <img src="@item.ImageUrl2" class="rounded shadow-sm" style="width: 50px; height: 35px; object-fit: cover;" title="Detay">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">@item.Title1</div>
+                                    <div class="small text-muted">@item.Title2</div>
+                                </td>
+                                <td>
+                                    <p class="small text-truncate mb-0" style="max-width: 300px;">@item.Description</p>
+                                </td>
+                                <td class="text-center">
+                                    <a href="/AdminBlog/UpdateBlog/@item.BlogId" class="btn btn-sm btn-light rounded-pill px-3 border">Düzenle</a>
+                                    <a href="/AdminBlog/DeleteBlog/@item.BlogId" class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="return confirm('Blog silinsin mi?')">Sil</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
