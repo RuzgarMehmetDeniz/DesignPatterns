@@ -1,0 +1,197 @@
+﻿@model List<DesignPatterns.Models.CartItem>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <title>Sepetim - Premium Market</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        .cart_section {
+            padding: 80px 0;
+        }
+
+        .cart_table thead {
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+            .cart_table thead th {
+                padding: 25px 20px;
+                font-size: 14px;
+                color: #222;
+                border: none;
+            }
+
+        .cart_table tbody tr {
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .cart_table tbody td {
+            padding: 30px 20px;
+        }
+
+        .cart_product {
+            width: 120px;
+            position: relative;
+        }
+
+        .item_image img {
+            max-width: 100%;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .remove_btn {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 28px;
+            height: 28px;
+            background: #fff;
+            border-radius: 50%;
+            color: #ff5a5a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .quantity_input {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #eee;
+            border-radius: 30px;
+            padding: 5px 15px;
+        }
+
+        .input_number {
+            width: 35px;
+            text-align: center;
+            border: none;
+            font-weight: 700;
+            outline: none;
+            background: transparent;
+        }
+
+        .qty_btn {
+            cursor: pointer;
+            font-size: 20px;
+            color: #8bc34a;
+            text-decoration: none;
+        }
+
+        .total_price {
+            color: #8bc34a;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .btn_checkout {
+            background: #222;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+            .btn_checkout:hover {
+                background: #8bc34a;
+            }
+    </style>
+</head>
+
+@await Component.InvokeAsync("_DefaultHeaderComponentPartial")
+
+<body>
+    <section class="cart_section">
+        <div class="container">
+            <h2 class="mb-5 fw-bold text-uppercase" style="letter-spacing: 2px;">Alışveriş Sepeti</h2>
+
+            <div class="cart_table table-responsive mb-5">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Ürün</th>
+                            <th>Ürün Adı</th>
+                            <th>Fiyatı</th>
+                            <th class="text-center">Adet</th>
+                            <th>Toplam</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="cart_product">
+                                            <a href="/Decorator/RemoveFromCart/@item.ProductId" class="remove_btn"><i class="fas fa-times"></i></a>
+                                            <div class="item_image text-center">
+                                                <img src="@item.ImageUrl" alt="fruit">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="item_content">
+                                            <h4 class="item_title fw-bold m-0">@item.ProductName</h4>
+                                            <small class="text-success fw-bold">Taze Organik</small>
+                                        </div>
+                                    </td>
+                                    <td>₺@item.Price.ToString("N2")</td>
+                                    <td class="text-center">
+                                        <div class="quantity_input shadow-sm">
+                                            <a href="/Decorator/DecreaseQuantity/@item.ProductId" class="qty_btn me-2">–</a>
+                                            <input class="input_number" value="@item.Quantity" readonly>
+                                            <a href="/Decorator/IncreaseQuantity/@item.ProductId" class="qty_btn ms-2">+</a>
+                                        </div>
+                                    </td>
+                                    <td><span class="total_price">₺@((item.Price * item.Quantity).ToString("N2"))</span></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="5" class="text-center py-5"><p class="lead">Sepetiniz boş.</p> <a href="/Decorator/Index" class="btn btn-dark rounded-pill">Alışverişe Başla</a></td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="row justify-content-end">
+                    <div class="col-lg-4">
+                        <div class="bg-light p-4 rounded-3 shadow-sm text-uppercase">
+                            <div class="d-flex justify-content-between mb-3 fw-bold">
+                                <span>Toplam</span>
+                                <span class="text-success fs-4">₺@Model.Sum(x => x.Price * x.Quantity).ToString("N2")</span>
+                            </div>
+                            <a href="/Basket/Checkout/" class="btn_checkout fw-bold">Ödemeye Geç</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+    @await Component.InvokeAsync("_DefaultScriptComponentPartial")
+</body>
+</html>

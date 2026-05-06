@@ -1,4 +1,5 @@
 using DesignPatterns.Context;
+using DesignPatterns.DesignPatterns.Decorator;
 using DesignPatterns.DesignPatterns.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddDbContext<BankContext>();
+builder.Services.AddScoped<IProductService, SqlProductService>();
 
 var app = builder.Build();
 
