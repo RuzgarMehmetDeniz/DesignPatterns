@@ -1,0 +1,84 @@
+﻿@model List<Category>
+
+@{
+    ViewData["Title"] = "Kategori Yönetimi";
+    Layout = "~/Views/AdminLayout/Index.cshtml"; // Kendi layout yolunuza göre güncelleyin
+}
+
+<!-- ── Header ── -->
+<div class="km-header">
+    <div class="km-header-left">
+        <div class="km-icon-badge">
+            <i class="fa-solid fa-leaf"></i>
+        </div>
+        <div>
+            <h1 class="km-title">Kategori Yönetimi</h1>
+            <p class="km-subtitle">Dinamik Veri Yönetim Paneli &mdash; Organik Market</p>
+        </div>
+    </div>
+    <a href="/AdminCategory/CreateCategory" class="km-btn-add">
+        <i class="fa-solid fa-plus"></i>
+        Yeni Kategori Ekle
+    </a>
+</div>
+
+<!-- ── Table Card ── -->
+<div class="km-table-card">
+
+    <div class="km-table-topbar">
+        <div class="km-table-title">
+            <i class="fa-solid fa-table-list"></i>
+            Kategori Listesi
+        </div>
+        <div class="km-search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="categorySearch" class="km-search-input" placeholder="Kategori ara...">
+        </div>
+    </div>
+
+    <div class="km-table-wrap">
+        <table class="km-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Kategori Adı</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><span class="km-id-badge">@item.CategoryId</span></td>
+                        <td>
+                            <div class="km-cat-cell">
+                                <div>
+                                    <div class="km-cat-name">@item.Name</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="km-actions">
+                                <a href="/AdminCategory/UpdateCategory/@item.CategoryId" class="km-btn-action km-btn-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i> Güncelle
+                                </a>
+                                <a href="/AdminCategory/DeleteCategory/@item.CategoryId"
+                                   onclick="return confirm('Bu kategoriyi silmek istediğinize emin misiniz?')"
+                                   class="km-btn-action km-btn-delete">
+                                    <i class="fa-solid fa-trash-can"></i> Sil
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="km-table-footer">
+        <div class="km-footer-info">
+            <span class="km-status-dot"></span>
+            Toplam <strong>@Model.Count</strong> kategori gösteriliyor &mdash; Tüm veriler güncel
+        </div>
+    </div>
+</div>

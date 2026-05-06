@@ -1,0 +1,124 @@
+﻿@{
+    Layout = null;
+}
+
+@await Component.InvokeAsync("_AdminLayoutHeadComponentPartial")
+
+
+<!-- ═══════════════════════════════════════
+     ADMIN SHELL LAYOUT
+═══════════════════════════════════════ -->
+<div class="admin-shell">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="km-sidebar" id="kmSidebar">
+
+        <!-- Brand -->
+        <a href="/Admin" class="km-sidebar-brand">
+            <div class="km-brand-logo"><i class="fa-solid fa-seedling"></i></div>
+            <div class="km-brand-text">
+                <div class="km-brand-name">OrganikMarket</div>
+                <div class="km-brand-tagline">Admin Paneli</div>
+            </div>
+        </a>
+
+        <!-- Navigation -->
+        <nav class="km-sidebar-nav">
+
+            <div class="km-nav-section-label">Ana Menü</div>
+
+            <a href="/Admin/Dashboard" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                <span class="km-nav-label">Dashboard</span>
+            </a>
+
+            <a href="/Admin/Product" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-box-open"></i></div>
+                <span class="km-nav-label">Ürünler</span>
+                <span class="km-nav-badge">287</span>
+            </a>
+
+            <a href="/Admin/Category" class="km-nav-item active">
+                <div class="km-nav-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <span class="km-nav-label">Kategoriler</span>
+            </a>
+
+            <a href="/Admin/Order" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                <span class="km-nav-label">Siparişler</span>
+                <span class="km-nav-badge">12</span>
+            </a>
+
+            <div class="km-sidebar-divider"></div>
+            <div class="km-nav-section-label">Müşteri</div>
+
+            <a href="/Admin/Customer" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-users"></i></div>
+                <span class="km-nav-label">Müşteriler</span>
+            </a>
+
+            <a href="/Admin/Review" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-star"></i></div>
+                <span class="km-nav-label">Değerlendirmeler</span>
+            </a>
+
+            <div class="km-sidebar-divider"></div>
+            <div class="km-nav-section-label">Sistem</div>
+
+            <a href="/Admin/Report" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <span class="km-nav-label">Raporlar</span>
+            </a>
+
+            <a href="/Admin/Settings" class="km-nav-item">
+                <div class="km-nav-icon"><i class="fa-solid fa-gear"></i></div>
+                <span class="km-nav-label">Ayarlar</span>
+            </a>
+
+            <a href="/Admin/Logout" class="km-nav-item" style="margin-top: 0.3rem;">
+                <div class="km-nav-icon" style="color: rgba(244,67,54,0.7)"><i class="fa-solid fa-right-from-bracket"></i></div>
+                <span class="km-nav-label" style="color: rgba(244,67,54,0.7)">Çıkış Yap</span>
+            </a>
+
+        </nav>
+
+        <!-- User footer -->
+        <div class="km-sidebar-footer">
+            <a href="/Admin/Profile" class="km-user-card">
+                <div class="km-user-avatar">AY</div>
+                <div>
+                    <div class="km-user-name">Admin Yönetici</div>
+                    <div class="km-user-role">Süper Admin</div>
+                </div>
+                <i class="fa-solid fa-ellipsis-vertical km-user-chevron"></i>
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- ── MAIN ── -->
+    <div class="km-main">
+
+        <!-- Top Navbar -->
+        @await Component.InvokeAsync("_AdminLayoutNavbarComponentPartial")
+
+        <!-- Page Content -->
+        <div class="km-content">
+
+            <!-- Orbs -->
+            <div class="km-orb km-orb-1"></div>
+            <div class="km-orb km-orb-2"></div>
+
+            <div class="km-panel-root">
+
+				@RenderBody()
+
+            </div><!-- /.km-panel-root -->
+        </div><!-- /.km-content -->
+    </div><!-- /.km-main -->
+
+</div><!-- /.admin-shell -->
+<!-- Mobile sidebar toggle (pure href navigation, no JS required for basic use) -->
+<button class="km-mobile-toggle" onclick="document.getElementById('kmSidebar').classList.toggle('open')" aria-label="Menüyü aç/kapat">
+    <i class="fa-solid fa-bars"></i>
+</button>

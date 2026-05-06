@@ -1,8 +1,4 @@
-﻿@{
-    Layout = null;
-}
-
-<!-- Bootstrap 5 & FontAwesome CDN -->
+﻿<!-- Bootstrap 5 & FontAwesome CDN -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -39,8 +35,8 @@
     }
 
     /* ══════════════════════════════
-           LAYOUT SHELL
-        ══════════════════════════════ */
+               LAYOUT SHELL
+            ══════════════════════════════ */
     .admin-shell {
         display: flex;
         min-height: 100vh;
@@ -49,8 +45,8 @@
     }
 
     /* ══════════════════════════════
-           SIDEBAR
-        ══════════════════════════════ */
+               SIDEBAR
+            ══════════════════════════════ */
     .km-sidebar {
         width: var(--sidebar-width);
         min-height: 100vh;
@@ -302,8 +298,8 @@
     }
 
     /* ══════════════════════════════
-           MAIN CONTENT AREA
-        ══════════════════════════════ */
+               MAIN CONTENT AREA
+            ══════════════════════════════ */
     .km-main {
         margin-left: var(--sidebar-width);
         flex: 1;
@@ -432,8 +428,8 @@
     }
 
     /* ══════════════════════════════
-           PANEL CONTENT (original styles)
-        ══════════════════════════════ */
+               PANEL CONTENT (original styles)
+            ══════════════════════════════ */
     .km-panel-root {
         position: relative;
         z-index: 1;
@@ -912,8 +908,8 @@
         }
 
     /* ══════════════════════════════
-           ANIMATIONS
-        ══════════════════════════════ */
+               ANIMATIONS
+            ══════════════════════════════ */
     @@keyframes fadeSlideUp {
         from {
             opacity: 0;
@@ -941,8 +937,8 @@
     }
 
     /* ══════════════════════════════
-           MOBILE SIDEBAR TOGGLE
-        ══════════════════════════════ */
+               MOBILE SIDEBAR TOGGLE
+            ══════════════════════════════ */
     .km-mobile-toggle {
         display: none;
         position: fixed;
@@ -963,8 +959,8 @@
     }
 
     /* ══════════════════════════════
-           RESPONSIVE
-        ══════════════════════════════ */
+               RESPONSIVE
+            ══════════════════════════════ */
     @@media (max-width: 1024px) {
         .km-sidebar {
             width: var(--sidebar-collapsed);
@@ -1064,334 +1060,3 @@
         }
     }
 </style>
-
-<!-- ═══════════════════════════════════════
-     ADMIN SHELL LAYOUT
-═══════════════════════════════════════ -->
-<div class="admin-shell">
-
-    <!-- ── SIDEBAR ── -->
-    <aside class="km-sidebar" id="kmSidebar">
-
-        <!-- Brand -->
-        <a href="/Admin" class="km-sidebar-brand">
-            <div class="km-brand-logo"><i class="fa-solid fa-seedling"></i></div>
-            <div class="km-brand-text">
-                <div class="km-brand-name">OrganikMarket</div>
-                <div class="km-brand-tagline">Admin Paneli</div>
-            </div>
-        </a>
-
-        <!-- Navigation -->
-        <nav class="km-sidebar-nav">
-
-            <div class="km-nav-section-label">Ana Menü</div>
-
-            <a href="/Admin/Dashboard" class="km-nav-item">
-                <div class="km-nav-icon"><i class="fa-solid fa-gauge-high"></i></div>
-                <span class="km-nav-label">Dashboard</span>
-            </a>
-
-            <a href="/Admin/Product" class="km-nav-item">
-                <div class="km-nav-icon"><i class="fa-solid fa-box-open"></i></div>
-                <span class="km-nav-label">Ürünler</span>
-                <span class="km-nav-badge">287</span>
-            </a>
-
-            <a href="/Admin/Category" class="km-nav-item active">
-                <div class="km-nav-icon"><i class="fa-solid fa-layer-group"></i></div>
-                <span class="km-nav-label">Kategoriler</span>
-            </a>
-
-            <a href="/Admin/Order" class="km-nav-item">
-                <div class="km-nav-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                <span class="km-nav-label">Siparişler</span>
-                <span class="km-nav-badge">12</span>
-            </a>
-
-            <div class="km-sidebar-divider"></div>
-            <div class="km-nav-section-label">Müşteri</div>
-
-            <a href="/Admin/Customer" class="km-nav-item">
-                <div class="km-nav-icon"><i class="fa-solid fa-users"></i></div>
-                <span class="km-nav-label">Müşteriler</span>
-            </a>
-
-            <a href="/Admin/Review" class="km-nav-item">
-                <div class="km-nav-icon"><i class="fa-solid fa-star"></i></div>
-                <span class="km-nav-label">Değerlendirmeler</span>
-            </a>
-
-            <div class="km-sidebar-divider"></div>
-            <div class="km-nav-section-label">Sistem</div>
-
-            <a href="/Admin/Report" class="km-nav-item">
-                <div class="km-nav-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <span class="km-nav-label">Raporlar</span>
-            </a>
-
-            <a href="/Admin/Settings" class="km-nav-item">
-                <div class="km-nav-icon"><i class="fa-solid fa-gear"></i></div>
-                <span class="km-nav-label">Ayarlar</span>
-            </a>
-
-            <a href="/Admin/Logout" class="km-nav-item" style="margin-top: 0.3rem;">
-                <div class="km-nav-icon" style="color: rgba(244,67,54,0.7)"><i class="fa-solid fa-right-from-bracket"></i></div>
-                <span class="km-nav-label" style="color: rgba(244,67,54,0.7)">Çıkış Yap</span>
-            </a>
-
-        </nav>
-
-        <!-- User footer -->
-        <div class="km-sidebar-footer">
-            <a href="/Admin/Profile" class="km-user-card">
-                <div class="km-user-avatar">AY</div>
-                <div>
-                    <div class="km-user-name">Admin Yönetici</div>
-                    <div class="km-user-role">Süper Admin</div>
-                </div>
-                <i class="fa-solid fa-ellipsis-vertical km-user-chevron"></i>
-            </a>
-        </div>
-
-    </aside>
-
-    <!-- ── MAIN ── -->
-    <div class="km-main">
-
-        <!-- Top Navbar -->
-        <div class="km-topnav">
-            <div class="km-breadcrumb">
-                <a href="/Admin"><i class="fa-solid fa-house" style="font-size:0.75rem"></i></a>
-                <span class="km-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></span>
-                <a href="/Admin">Yönetim</a>
-                <span class="km-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></span>
-                <span class="km-breadcrumb-current">Kategoriler</span>
-            </div>
-            <div class="km-topnav-right">
-                <a href="/Admin/Notifications" class="km-topnav-btn">
-                    <i class="fa-solid fa-bell"></i>
-                    <span class="km-notif-dot"></span>
-                </a>
-                <a href="/Admin/Search" class="km-topnav-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </a>
-                <a href="/Admin/Profile" class="km-topnav-btn">
-                    <i class="fa-solid fa-circle-user"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- Page Content -->
-        <div class="km-content">
-
-            <!-- Orbs -->
-            <div class="km-orb km-orb-1"></div>
-            <div class="km-orb km-orb-2"></div>
-
-            <div class="km-panel-root">
-
-                <!-- ── Header ── -->
-                <div class="km-header">
-                    <div class="km-header-left">
-                        <div class="km-icon-badge">
-                            <i class="fa-solid fa-leaf"></i>
-                        </div>
-                        <div>
-                            <h1 class="km-title">Kategori Yönetimi</h1>
-                            <p class="km-subtitle">Dinamik Veri Yönetim Paneli &mdash; Organik Market</p>
-                        </div>
-                    </div>
-                    <a href="/Admin/Category/Create" class="km-btn-add">
-                        <i class="fa-solid fa-plus"></i>
-                        Yeni Kategori Ekle
-                    </a>
-                </div>
-
-                <!-- ── Stats Row ── -->
-                <div class="km-stats-row">
-                    <div class="km-stat-card">
-                        <div class="km-stat-icon"><i class="fa-solid fa-layer-group"></i></div>
-                        <div>
-                            <div class="km-stat-value">5</div>
-                            <div class="km-stat-label">Toplam Kategori</div>
-                        </div>
-                    </div>
-                    <div class="km-stat-card">
-                        <div class="km-stat-icon"><i class="fa-solid fa-box-open"></i></div>
-                        <div>
-                            <div class="km-stat-value">287</div>
-                            <div class="km-stat-label">Toplam Ürün</div>
-                        </div>
-                    </div>
-                    <div class="km-stat-card">
-                        <div class="km-stat-icon"><i class="fa-solid fa-circle-check"></i></div>
-                        <div>
-                            <div class="km-stat-value">5</div>
-                            <div class="km-stat-label">Aktif Kategori</div>
-                        </div>
-                    </div>
-                    <div class="km-stat-card">
-                        <div class="km-stat-icon"><i class="fa-solid fa-chart-bar"></i></div>
-                        <div>
-                            <div class="km-stat-value">57</div>
-                            <div class="km-stat-label">Ort. Ürün / Kategori</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ── Table Card ── -->
-                <div class="km-table-card">
-
-                    <div class="km-table-topbar">
-                        <div class="km-table-title">
-                            <i class="fa-solid fa-table-list"></i>
-                            Kategori Listesi
-                        </div>
-                        <div class="km-search-wrap">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" class="km-search-input" placeholder="Kategori ara...">
-                        </div>
-                    </div>
-
-                    <div class="km-table-wrap">
-                        <table class="km-table">
-                            <thead>
-                                <tr>
-                                    <th>#ID</th>
-                                    <th>Kategori Adı</th>
-                                    <th>Açıklama</th>
-                                    <th>Ürün Sayısı</th>
-                                    <th>İşlemler</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="km-id-badge">01</span></td>
-                                    <td>
-                                        <div class="km-cat-cell">
-                                            <div class="km-cat-emoji">🍎</div>
-                                            <div>
-                                                <div class="km-cat-name">Meyveler</div>
-                                                <div class="km-cat-slug">meyveler</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="km-desc-text">Doğal tarım koşullarında yetiştirilen taze ve kurutulmuş organik meyveler.</span></td>
-                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 64 ürün</span></td>
-                                    <td>
-                                        <div class="km-actions">
-                                            <a href="/Admin/Category/Update/1" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
-                                            <a href="/Admin/Category/Delete/1" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="km-id-badge">02</span></td>
-                                    <td>
-                                        <div class="km-cat-cell">
-                                            <div class="km-cat-emoji">🥦</div>
-                                            <div>
-                                                <div class="km-cat-name">Sebzeler</div>
-                                                <div class="km-cat-slug">sebzeler</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="km-desc-text">Kimyasal gübre kullanılmadan, organik toprakta yetiştirilmiş taze sebzeler.</span></td>
-                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 81 ürün</span></td>
-                                    <td>
-                                        <div class="km-actions">
-                                            <a href="/Admin/Category/Update/2" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
-                                            <a href="/Admin/Category/Delete/2" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="km-id-badge">03</span></td>
-                                    <td>
-                                        <div class="km-cat-cell">
-                                            <div class="km-cat-emoji">🫘</div>
-                                            <div>
-                                                <div class="km-cat-name">Bakliyat</div>
-                                                <div class="km-cat-slug">bakliyat</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="km-desc-text">Protein açısından zengin; nohut, mercimek, fasulye ve daha fazlası.</span></td>
-                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 43 ürün</span></td>
-                                    <td>
-                                        <div class="km-actions">
-                                            <a href="/Admin/Category/Update/3" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
-                                            <a href="/Admin/Category/Delete/3" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="km-id-badge">04</span></td>
-                                    <td>
-                                        <div class="km-cat-cell">
-                                            <div class="km-cat-emoji">🧀</div>
-                                            <div>
-                                                <div class="km-cat-name">Süt Ürünleri</div>
-                                                <div class="km-cat-slug">sut-urunleri</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="km-desc-text">Sertifikalı organik çiftliklerden elde edilen süt, peynir ve yoğurt çeşitleri.</span></td>
-                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 58 ürün</span></td>
-                                    <td>
-                                        <div class="km-actions">
-                                            <a href="/Admin/Category/Update/4" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
-                                            <a href="/Admin/Category/Delete/4" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="km-id-badge">05</span></td>
-                                    <td>
-                                        <div class="km-cat-cell">
-                                            <div class="km-cat-emoji">🫒</div>
-                                            <div>
-                                                <div class="km-cat-name">Organik Yağlar</div>
-                                                <div class="km-cat-slug">organik-yaglar</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="km-desc-text">Soğuk sıkım zeytinyağı, hindistancevizi yağı ve diğer doğal bitkisel yağlar.</span></td>
-                                    <td><span class="km-count-badge"><i class="fa-solid fa-cubes-stacked"></i> 41 ürün</span></td>
-                                    <td>
-                                        <div class="km-actions">
-                                            <a href="/Admin/Category/Update/5" class="km-btn-action km-btn-edit"><i class="fa-solid fa-pen-to-square"></i> Güncelle</a>
-                                            <a href="/Admin/Category/Delete/5" class="km-btn-action km-btn-delete"><i class="fa-solid fa-trash-can"></i> Sil</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="km-table-footer">
-                        <div class="km-footer-info">
-                            <span class="km-status-dot"></span>
-                            Toplam <strong>5</strong> kategori gösteriliyor &mdash; Tüm veriler güncel
-                        </div>
-                        <div class="km-pagination">
-                            <a href="/Admin/Category?page=1" class="km-page-btn"><i class="fa-solid fa-chevron-left" style="font-size:0.62rem"></i></a>
-                            <a href="/Admin/Category?page=1" class="km-page-btn active">1</a>
-                            <a href="/Admin/Category?page=2" class="km-page-btn">2</a>
-                            <a href="/Admin/Category?page=3" class="km-page-btn">3</a>
-                            <a href="/Admin/Category?page=2" class="km-page-btn"><i class="fa-solid fa-chevron-right" style="font-size:0.62rem"></i></a>
-                        </div>
-                    </div>
-
-                </div><!-- /.km-table-card -->
-
-            </div><!-- /.km-panel-root -->
-        </div><!-- /.km-content -->
-    </div><!-- /.km-main -->
-
-</div><!-- /.admin-shell -->
-<!-- Mobile sidebar toggle (pure href navigation, no JS required for basic use) -->
-<button class="km-mobile-toggle" onclick="document.getElementById('kmSidebar').classList.toggle('open')" aria-label="Menüyü aç/kapat">
-    <i class="fa-solid fa-bars"></i>
-</button>
