@@ -1,0 +1,31 @@
+﻿@model DesignPatterns.Entites.Trend
+@{
+    ViewData["Title"] = "Trend Düzenle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-6">
+            <div class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
+                <div class="mb-4 text-center border-bottom pb-3">
+                    <img src="@Model.ImageUrl" class="rounded shadow mb-3" style="width: 100%; max-height: 150px; object-fit: cover;">
+                    <h5 class="fw-bold m-0">Trend Bilgilerini Güncelle</h5>
+                </div>
+
+                <form asp-action="UpdateTrend" method="post">
+                    <input type="hidden" asp-for="TrendId" />
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Görsel URL</label>
+                        <input type="text" asp-for="ImageUrl" class="form-control bg-light border-0 py-2" style="border-radius: 10px;">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Açıklama</label>
+                        <textarea asp-for="Description" rows="5" class="form-control bg-light border-0" style="border-radius: 12px;">@Model.Description</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 shadow-sm">Değişiklikleri Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model DesignPatterns.Entites.Quality
+@{
+    ViewData["Title"] = "Düzenle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <form asp-action="UpdateQuality" method="post">
+        <input type="hidden" asp-for="QualityId" />
+
+        <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 15px;">
+            <h5 class="fw-bold text-primary border-bottom pb-3">Ana Bölüm</h5>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label class="form-label small fw-bold">Ana Görsel URL (Arka Plan)</label>
+                    <input type="text" asp-for="MainImageUrl" class="form-control bg-light border-0 py-2" style="border-radius: 10px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            @for (int i = 1; i <= 4; i++)
+            {
+                var titleProp = "Title" + i;
+                var descProp = "Description" + i;
+                var imgProp = "ImageUrl" + i;
+
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm p-4 h-100" style="border-radius: 15px;">
+                        <h6 class="fw-bold text-dark mb-3">Özellik Bölümü @i</h6>
+                        <div class="mb-3">
+                            <label class="form-label small">Başlık @i</label>
+                            <input type="text" name="@titleProp" value="@Model?.GetType().GetProperty(titleProp).GetValue(Model)" class="form-control bg-light border-0" style="border-radius: 10px;">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small">İkon/Görsel URL @i</label>
+                            <input type="text" name="@imgProp" value="@Model?.GetType().GetProperty(imgProp).GetValue(Model)" class="form-control bg-light border-0" style="border-radius: 10px;">
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label small">Açıklama @i</label>
+                            <textarea name="@descProp" rows="3" class="form-control bg-light border-0" style="border-radius: 10px;">@Model?.GetType().GetProperty(descProp).GetValue(Model)</textarea>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 shadow">Değişiklikleri Kaydet</button>
+        </div>
+    </form>
+</div>

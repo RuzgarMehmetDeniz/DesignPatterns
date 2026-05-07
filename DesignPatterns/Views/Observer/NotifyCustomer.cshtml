@@ -1,0 +1,104 @@
+﻿@model List<DesignPatterns.Entites.CustomerProcess>
+@{
+    ViewData["Title"] = "Müşteri Bildirim Merkezi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show rounded-pill px-4 shadow-sm border-0 mb-4" role="alert">
+            <i class="fas fa-check-circle me-2"></i> @TempData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+        <div class="card-header bg-transparent border-0 p-4">
+            <div class="d-flex align-items-center">
+                <div class="bg-soft-warning p-3 rounded-3 me-3">
+                    <i class="fas fa-bell text-warning fa-2x"></i>
+                </div>
+                <div>
+                    <h4 class="fw-bold m-0 text-dark">İndirim & Bildirim Takibi</h4>
+                    <p class="text-muted mb-0 small">Observer Pattern ile müşterilere anlık kampanya duyuruları gönderin.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-muted small uppercase">
+                        <tr>
+                            <th class="ps-4">#ID</th>
+                            <th>Müşteri Adı</th>
+                            <th>İşlem Tutarı</th>
+                            <th>Açıklama</th>
+                            <th class="text-end pe-4">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 text-muted fw-bold">#@item.CustomerProcessId</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm me-2 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width:35px; height:35px;">
+                                            @item.CustomerName.Substring(0, 1).ToUpper()
+                                        </div>
+                                        <span class="fw-semibold">@item.CustomerName</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-soft-success text-success fs-6">
+                                        @item.Amount.ToString("C2")
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (item.Description.Contains("İndirim"))
+                                    {
+                                        <span class="text-danger fw-bold"><i class="fas fa-bolt me-1"></i> @item.Description</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">@item.Description</span>
+                                    }
+                                </td>
+                                <td class="text-end pe-4">
+                                    <form asp-action="NotifyCustomer" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@item.CustomerProcessId" />
+                                        <button type="submit" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm fw-bold">
+                                            <i class="fas fa-paper-plane me-1"></i> Bildirim Gönder
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft-warning {
+        background-color: rgba(255, 193, 7, 0.1);
+    }
+
+    .bg-soft-success {
+        background-color: rgba(40, 167, 69, 0.1);
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0,0,0,0.02);
+        transition: 0.3s;
+    }
+
+    .avatar-sm {
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+</style>

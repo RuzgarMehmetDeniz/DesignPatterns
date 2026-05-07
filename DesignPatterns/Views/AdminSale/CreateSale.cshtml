@@ -1,0 +1,38 @@
+﻿@model DesignPatterns.Entites.Sale
+@{
+    ViewData["Title"] = "Yeni Kampanya";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-8">
+            <div class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
+                <h5 class="fw-bold mb-4 border-bottom pb-3"><i class="fas fa-bullhorn text-danger me-2"></i>Yeni Kampanya Oluştur</h5>
+                <form asp-action="CreateSale" method="post">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Üst Başlık (Örn: Haftalık Fırsat)</label>
+                            <input type="text" asp-for="Title1" class="form-control bg-light border-0 py-2" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Vurgulu Başlık (Örn: %50 İndirim)</label>
+                            <input type="text" asp-for="Title2" class="form-control bg-light border-0 py-2 text-danger fw-bold" style="border-radius: 10px;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Kampanya Görsel URL</label>
+                            <input type="text" asp-for="ImageUrl" class="form-control bg-light border-0 py-2" style="border-radius: 10px;" placeholder="https://...">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Kampanya Açıklaması</label>
+                            <textarea asp-for="Description" rows="4" class="form-control bg-light border-0" style="border-radius: 15px;" placeholder="Kampanya detaylarını buraya yazın..."></textarea>
+                        </div>
+                        <div class="col-12 mt-4 text-end">
+                            <button type="submit" class="btn btn-danger rounded-pill px-5 py-2 shadow">Kampanyayı Yayınla</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

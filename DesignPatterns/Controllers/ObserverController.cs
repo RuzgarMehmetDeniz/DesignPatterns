@@ -2,44 +2,48 @@
 using DesignPatterns.DesignPatterns.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 
-public class ObserverController : Controller
+namespace DesignPatterns.Controllers
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public ObserverController(IUnitOfWork unitOfWork)
+    public class ObserverController : Controller
     {
-        _unitOfWork = unitOfWork;
-    }
-    [HttpGet]
-    public IActionResult NotifyCustomer()
-    {
-        // Müşteri işlemlerini listele
-        var processes = _unitOfWork.CustomerProcesses.GetAll();
-        return View(processes);
-    }
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ObserverObject _observerObject;
 
-    [HttpPost]
-    public IActionResult NotifyCustomer(int id)
-    {
-        // 1. Veritabanından işlemi bul (Unit of Work kullanarak)
-        var process = _unitOfWork.CustomerProcesses.GetById(id);
-
-        if (process != null)
+        public ObserverController(IUnitOfWork unitOfWork, ObserverObject observerObject)
         {
-            // 2. Observer sistemini ayağa kaldır
-            var observerObject = new ObserverObject();
-
-            // Gözlemcileri kayıt et
-            observerObject.RegisterObserver(new WelcomeMessageObserver());
-            // İstersen buraya yeni gözlemciler ekleyebilirsin:
-            // observerObject.RegisterObserver(new SmsObserver());
-
-            // 3. Haberi uçur!
-            observerObject.NotifyObservers(process);
-
-            TempData["Message"] = $"{process.CustomerName} için bildirimler gönderildi.";
+            _unitOfWork = unitOfWork;
+            _observerObject = observerObject;
         }
 
-        return RedirectToAction("Index", "CustomerProcess");
+        [HttpGet]
+        public IActionResult NotifyCustomer()
+        {
+            // Müşteri işlemlerini listele
+            var processes = _unitOfWork.CustomerProcesses.GetAll();
+            return View(processes);
+        }
+
+        [HttpPost]
+        public IActionResult NotifyCustomer(int id)
+        {
+            // 1. Veritabanından ilgili süreci getir
+            var process = _unitOfWork.CustomerProcesses.GetById(id);
+
+            if (process != null)
+            {
+                // 2. Program.cs'de kayıtlı olan tüm Observer'ları (Welcome, Discount vb.) tetikle
+                _observerObject.NotifyObservers(process);
+
+                // 3. Kullanıcıya bilgi mesajı gönder
+                TempData["Message"] = $"{process.CustomerName} için indirim ve hoş geldin bildirimleri başarıyla iletildi.";
+            }
+            else
+            {
+                TempData["Error"] = "İşlem kaydı bulunamadı.";
+            }
+
+            // Kendi GET metoduna (listeye) geri dön
+            return RedirectToAction("NotifyCustomer");
+        }
     }
 }

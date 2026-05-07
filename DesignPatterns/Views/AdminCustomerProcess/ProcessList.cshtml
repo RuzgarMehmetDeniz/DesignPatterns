@@ -20,7 +20,7 @@
                             <th class="ps-4">Müşteri Adı</th>
                             <th>Sorumlu Personel</th>
                             <th class="text-end">Tutar</th>
-                            <th>Açıklama</th>
+                            <th style="width: 45%;">Açıklama</th>
                             <th class="text-center">İşlemler</th>
                         </tr>
                     </thead>
@@ -31,8 +31,12 @@
                                 <td class="ps-4 fw-semibold text-dark">@item.CustomerName</td>
                                 <td><span class="badge bg-soft-info text-info rounded-pill px-3">@item.EmployeeName</span></td>
                                 <td class="text-end fw-bold text-success">@item.Amount.ToString("C2")</td>
-                                <td><small class="text-muted">@item.Description</small></td>
-                                <td class="text-center">
+                                <td style="min-width: 300px;">
+                                    <div class="text-wrap text-muted small" style="line-height: 1.5;">
+                                        @item.Description
+                                    </div>
+                                </td>
+                                <td class="text-center" style="white-space: nowrap;">
                                     <a href="/AdminCustomerProcess/UpdateProcess/@item.CustomerProcessId" class="btn btn-sm btn-outline-primary rounded-circle border-0"><i class="fas fa-edit"></i></a>
                                     <a href="/AdminCustomerProcess/DeleteProcess/@item.CustomerProcessId" class="btn btn-sm btn-outline-danger rounded-circle border-0" onclick="return confirm('Bu işlemi silmek istediğinize emin misiniz?')"><i class="fas fa-trash"></i></a>
                                 </td>

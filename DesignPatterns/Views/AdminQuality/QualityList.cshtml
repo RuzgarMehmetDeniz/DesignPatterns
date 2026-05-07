@@ -1,0 +1,48 @@
+﻿@model List<DesignPatterns.Entites.Quality>
+@{
+    ViewData["Title"] = "Kalite Yönetimi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+        <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center p-4">
+            <h4 class="fw-bold m-0"><i class="fas fa-award text-primary me-2"></i>Kalite & Özellik Bölümleri</h4>
+            <a href="/AdminQuality/CreateQuality" class="btn btn-primary btn-sm rounded-pill px-4">
+                <i class="fas fa-plus me-2"></i>Yeni Ekle
+            </a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light small text-muted">
+                        <tr>
+                            <th class="ps-4">Ana Görsel</th>
+                            <th>Başlık 1</th>
+                            <th>Başlık 2</th>
+                            <th>Başlık 3</th>
+                            <th class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <img src="@item.MainImageUrl" class="rounded shadow-sm" style="width: 60px; height: 40px; object-fit: cover;">
+                                </td>
+                                <td>@item.Title1</td>
+                                <td>@item.Title2</td>
+                                <td>@item.Title3</td>
+                                <td class="text-center">
+                                    <a href="/AdminQuality/UpdateQuality/@item.QualityId" class="btn btn-sm btn-outline-primary rounded-pill px-3">Düzenle</a>
+                                    <a href="/AdminQuality/DeleteQuality/@item.QualityId" class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="return confirm('Silmek istediğinize emin misiniz?')">Sil</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

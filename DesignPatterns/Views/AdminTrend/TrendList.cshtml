@@ -1,0 +1,39 @@
+﻿@model List<DesignPatterns.Entites.Trend>
+@{
+    ViewData["Title"] = "Trend Yönetimi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 15px;">
+        <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center p-4">
+            <h4 class="fw-bold m-0 text-dark"><i class="fas fa-fire text-danger me-2"></i>Trend İçerikler</h4>
+            <a href="/AdminTrend/CreateTrend" class="btn btn-dark btn-sm rounded-pill px-4 shadow-sm">
+                <i class="fas fa-plus me-2"></i>Yeni Trend Ekle
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm position-relative overflow-hidden" style="border-radius: 20px;">
+                    <img src="@item.ImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Trend Image">
+                    <div class="card-body">
+                        <p class="card-text text-muted small">@item.Description</p>
+                        <hr class="opacity-10">
+                        <div class="d-flex justify-content-between">
+                            <a href="/AdminTrend/UpdateTrend/@item.TrendId" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                <i class="fas fa-edit me-1"></i>Düzenle
+                            </a>
+                            <a href="/AdminTrend/DeleteTrend/@item.TrendId" class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="return confirm('Bu trendi silmek istediğinize emin misiniz?')">
+                                <i class="fas fa-trash me-1"></i>Sil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
