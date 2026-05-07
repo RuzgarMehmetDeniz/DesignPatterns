@@ -46,20 +46,18 @@ Günlük hayatımızın vazgeçilmezi olan taze meyve ve sebzelerin online ortam
 
 ---
 
-### ⛓️ Sepet ve Ödeme Süreci
-> Kullanıcı ödemeye geçtiğinde stok kontrolü, adres doğrulama ve ödeme onayı sırasıyla işlenir. Herhangi bir adımda sorun çıkarsa süreç orada durur.
+### 🛒 Ürün Kartları ve Kullanıcı Arayüzü
+> SQL'den gelen ürün görseli, fiyat ve stok bilgisi her kart için ayrı ayrı çekilir. Sepete ekleme işlemleri tutarlı ve hatasız çalışır.
 
 <img width="1351" alt="Basket1" src="https://github.com/user-attachments/assets/cd9b0544-d18d-47fc-817a-05d907469b0f" />
 
 ---
 
-### 🛒 Ürün Kartları ve Kullanıcı Arayüzü
-> SQL'den gelen ürün görseli, fiyat ve stok bilgisi her kart için ayrı ayrı çekilir. Sepete ekleme işlemleri tutarlı ve hatasız çalışır.
-
+### ⛓️ Sepet ve Ödeme Süreci
+> Kullanıcı ödemeye geçtiğinde stok kontrolü, adres doğrulama ve ödeme onayı sırasıyla işlenir. Herhangi bir adımda sorun çıkarsa süreç orada durur.
 <img width="1351" alt="Card1" src="https://github.com/user-attachments/assets/4b2b325e-9f2f-413d-a47e-7943bbb3ce0c" />
 
 ---
-
 ### ⚡ Admin — Ürün Yönetimi
 > Ürün fiyatı, görseli veya stok durumu buradan güncellenir. Yapılan değişiklik kullanıcı arayüzüne anında yansır.
 
