@@ -31,12 +31,20 @@ namespace DesignPatterns.Controllers
         public IActionResult NotifyCustomer(int id)
         {
             var process = _context.CustomerProcesses.Find(id);
-            var urun = _context.Products.FirstOrDefault(p => p.Name.Contains("Salatalık"));
-            if (process != null && urun != null)
+
+            if (process != null)
             {
-                process.Amount = urun.Price;
-                _observerObject.NotifyObservers(process);
+                // Ürünü CustomerProcess üzerinden dinamik çek
+                var urun = _context.Products.FirstOrDefault(p => p.ProductId == process.CustomerProcessId);
+
+                if (urun != null)
+                {
+                    process.Amount = urun.Price;
+                    process.ProductName = urun.Name; 
+                    _observerObject.NotifyObservers(process);
+                }
             }
+
             return RedirectToAction("Index");
         }
     }
