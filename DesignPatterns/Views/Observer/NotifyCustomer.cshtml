@@ -2,17 +2,10 @@
 @{
     ViewData["Title"] = "Müşteri Bildirim Merkezi";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    int index = 0;
 }
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <div class="container-fluid py-4">
-    @if (TempData["Message"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show rounded-pill px-4 shadow-sm border-0 mb-4" role="alert">
-            <i class="fas fa-check-circle me-2"></i> @TempData["Message"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-
     <div class="card border-0 shadow-sm" style="border-radius: 15px;">
         <div class="card-header bg-transparent border-0 p-4">
             <div class="d-flex align-items-center">
@@ -21,7 +14,7 @@
                 </div>
                 <div>
                     <h4 class="fw-bold m-0 text-dark">İndirim & Bildirim Takibi</h4>
-                    <p class="text-muted mb-0 small">Observer Pattern ile müşterilere anlık kampanya duyuruları gönderin.</p>
+                    <p class="text-muted mb-0 small">Müşterilere özel ürün indirim mesajları gönderin.</p>
                 </div>
             </div>
         </div>
@@ -31,46 +24,28 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light text-muted small uppercase">
                         <tr>
-                            <th class="ps-4">#ID</th>
-                            <th>Müşteri Adı</th>
-                            <th>İşlem Tutarı</th>
-                            <th>Açıklama</th>
+                            <th class="ps-4">#</th>
+                            <th>Müşteri</th>
+                            <th>Sepet Toplamı</th>
+                            <th>Detaylar</th>
                             <th class="text-end pe-4">İşlemler</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
+                            index++;
                             <tr>
-                                <td class="ps-4 text-muted fw-bold">#@item.CustomerProcessId</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="avatar-sm me-2 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width:35px; height:35px;">
-                                            @item.CustomerName.Substring(0, 1).ToUpper()
-                                        </div>
-                                        <span class="fw-semibold">@item.CustomerName</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge bg-soft-success text-success fs-6">
-                                        @item.Amount.ToString("C2")
-                                    </span>
-                                </td>
-                                <td>
-                                    @if (item.Description.Contains("İndirim"))
-                                    {
-                                        <span class="text-danger fw-bold"><i class="fas fa-bolt me-1"></i> @item.Description</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">@item.Description</span>
-                                    }
-                                </td>
+                                <td class="ps-4 text-muted fw-bold">@index</td>
+                                <td class="fw-semibold">@item.CustomerName</td>
+                                <td><span class="badge bg-soft-success text-success fw-bold">@item.Amount.ToString("C2")</span></td>
+                                <td><small class="text-muted">@item.Description</small></td>
                                 <td class="text-end pe-4">
-                                    <form asp-action="NotifyCustomer" method="post" class="d-inline">
+                                    <form asp-action="NotifyCustomer" method="post">
                                         <input type="hidden" name="id" value="@item.CustomerProcessId" />
-                                        <button type="submit" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm fw-bold">
-                                            <i class="fas fa-paper-plane me-1"></i> Bildirim Gönder
+                                        <button type="button" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm fw-bold"
+                                                onclick="showDiscountPreview('@item.CustomerName', '@item.Description', this)">
+                                            <i class="fas fa-tag me-1"></i> İndirim Gönder
                                         </button>
                                     </form>
                                 </td>
@@ -83,22 +58,73 @@
     </div>
 </div>
 
+<div class="modal fade" id="discountModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+            <div class="modal-header bg-white border-0 py-3 shadow-sm">
+                <h5 class="modal-title fw-bold text-success"><i class="fas fa-percentage me-2"></i>Fiyat İndirim Bildirimi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 bg-white text-center">
+                <div class="mb-3 text-success">
+                    <i class="fas fa-gift fa-3x"></i>
+                </div>
+                <h6 class="text-secondary fw-bold mb-3">Müşteriye İletilecek Mesaj:</h6>
+                <div id="modalDiscountMessage" class="p-3 rounded-4 border-dashed border-success text-dark shadow-sm"
+                     style="background-color: #f0fff4; border: 2px dashed #28a745; font-size: 0.95rem; line-height: 1.6;">
+                </div>
+            </div>
+            <div class="modal-footer border-0 justify-content-center pb-4 bg-white">
+                <button type="button" class="btn btn-success rounded-pill px-5 fw-bold shadow" data-bs-dismiss="modal">
+                    Onayla ve Gönder
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
-    .bg-soft-warning {
-        background-color: rgba(255, 193, 7, 0.1);
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.3) !important;
+        opacity: 1 !important;
+    }
+
+    .modal-content {
+        background-color: #ffffff !important;
     }
 
     .bg-soft-success {
         background-color: rgba(40, 167, 69, 0.1);
     }
 
-    .table-hover tbody tr:hover {
-        background-color: rgba(0,0,0,0.02);
-        transition: 0.3s;
+    .bg-soft-warning {
+        background-color: rgba(255, 193, 7, 0.1);
     }
 
-    .avatar-sm {
-        font-size: 0.8rem;
-        font-weight: bold;
+    .border-dashed {
+        border-style: dashed !important;
     }
 </style>
+
+<script>
+    function showDiscountPreview(name, btn) {
+        const eskiFiyat = "₺25,00";
+        const yeniFiyat = "₺12,50";
+
+        let message = `🌿 Sayın ${name},\n\n` +
+                      `SADECE BUGÜNE ÖZEL İNDİRİM!\n\n` +
+                      `🥒 Çengelköy Salatalık\n` +
+                      `❌ Eski Fiyat: ${eskiFiyat}\n` +
+                      `✅ İndirimli Fiyat: ${yeniFiyat}\n\n` +
+                      `Keyifli alışverişler dileriz! 🌿`;
+
+        document.getElementById("modalDiscountMessage").innerText = message;
+
+        var myModal = new bootstrap.Modal(document.getElementById('discountModal'));
+        myModal.show();
+
+        setTimeout(() => {
+            btn.closest('form').submit();
+        }, 3000);
+    }
+</script>

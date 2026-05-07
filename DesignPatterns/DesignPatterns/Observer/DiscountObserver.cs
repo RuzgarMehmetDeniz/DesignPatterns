@@ -1,14 +1,25 @@
 ﻿using DesignPatterns.Entites;
-
+using System;
 namespace DesignPatterns.DesignPatterns.Observer
 {
     public class DiscountObserver : IObserver
     {
         public void CreateObserver(CustomerProcess process)
         {
-            // Buradaki mantık: Eğer işlem tipi "İndirim" ise müşteriye haber ver
-            // Şimdilik simüle ediyoruz:
-            Console.WriteLine($"BİLGİLENDİRME: Sayın {process.CustomerName}, takip ettiğiniz ürünün fiyatı {process.Amount} TL olarak güncellendi! Kaçırmayın.");
+            decimal eskiFiyat = process.Amount;
+            decimal yeniFiyat = eskiFiyat / 2;
+
+            string mesaj = $"📢 MÜJDE: Sayın {process.CustomerName}, beklediğiniz fırsat geldi!\n" +
+                           $"🥒 Çengelköy Salatalık ürününde %50 dev indirim başladı!\n" +
+                           $"❌ Eski Fiyat: {eskiFiyat:C2}\n" +
+                           $"✅ İndirimli Fiyat: {yeniFiyat:C2}\n" +
+                           $"Kaçırmamak için hemen organikmarket.com üzerinden sipariş verin! 🌿";
+
+            Console.WriteLine("-----------------------------------------------");
+            Console.WriteLine($"[BİLDİRİM GÖNDERİLDİ] -> {process.CustomerName}");
+            Console.WriteLine("MESAJ İÇERİĞİ:");
+            Console.WriteLine(mesaj);
+            Console.WriteLine("-----------------------------------------------");
         }
     }
 }

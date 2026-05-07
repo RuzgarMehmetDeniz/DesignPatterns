@@ -1,5 +1,4 @@
 ﻿using DesignPatterns.Entites;
-
 namespace DesignPatterns.DesignPatterns.Observer
 {
     public interface IObserver

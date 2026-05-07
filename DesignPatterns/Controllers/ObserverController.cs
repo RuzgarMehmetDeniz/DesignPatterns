@@ -1,6 +1,8 @@
-﻿using DesignPatterns.DesignPatterns.Observer;
+﻿using DesignPatterns.Context;
+using DesignPatterns.DesignPatterns.Observer;
 using DesignPatterns.DesignPatterns.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DesignPatterns.Controllers
 {
@@ -8,11 +10,13 @@ namespace DesignPatterns.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ObserverObject _observerObject;
+        private readonly BankContext _context;
 
-        public ObserverController(IUnitOfWork unitOfWork, ObserverObject observerObject)
+        public ObserverController(IUnitOfWork unitOfWork, ObserverObject observerObject, BankContext context)
         {
             _unitOfWork = unitOfWork;
             _observerObject = observerObject;
+            _context = context;
         }
 
         [HttpGet]
@@ -26,24 +30,14 @@ namespace DesignPatterns.Controllers
         [HttpPost]
         public IActionResult NotifyCustomer(int id)
         {
-            // 1. Veritabanından ilgili süreci getir
-            var process = _unitOfWork.CustomerProcesses.GetById(id);
-
-            if (process != null)
+            var process = _context.CustomerProcesses.Find(id);
+            var urun = _context.Products.FirstOrDefault(p => p.Name.Contains("Salatalık"));
+            if (process != null && urun != null)
             {
-                // 2. Program.cs'de kayıtlı olan tüm Observer'ları (Welcome, Discount vb.) tetikle
+                process.Amount = urun.Price;
                 _observerObject.NotifyObservers(process);
-
-                // 3. Kullanıcıya bilgi mesajı gönder
-                TempData["Message"] = $"{process.CustomerName} için indirim ve hoş geldin bildirimleri başarıyla iletildi.";
             }
-            else
-            {
-                TempData["Error"] = "İşlem kaydı bulunamadı.";
-            }
-
-            // Kendi GET metoduna (listeye) geri dön
-            return RedirectToAction("NotifyCustomer");
+            return RedirectToAction("Index");
         }
     }
 }
