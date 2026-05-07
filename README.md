@@ -98,12 +98,6 @@ Günlük hayatımızın vazgeçilmezi olan taze meyve ve sebzelerin online ortam
 <img width="542" alt="OrderOkey" src="https://github.com/user-attachments/assets/155d2998-40a7-4c90-86c7-ba6a2559a375" />
 ---
 
-### 🔔 Admin — İndirim & Bildirim Takibi
-> Müşterilere özel fiyat indirimi mesajları buradan gönderilir. İlgili ürün ve müşteri seçilerek indirim bildirimi onaylanır ve iletilir.
-
-<img width="1162" alt="Observer1" src="https://github.com/user-attachments/assets/2c6c7562-dc0a-4174-abd6-1a3885ec006f" />
-
----
 
 ### 🏢 Admin — Kurumsal Sayfa Yönetimi (About)
 > Hakkımızda ve kurumsal bilgi alanları sabit HTML yerine veritabanından gelir. Yönetici panelinden yapılan düzenleme sayfaya anında yansır.
