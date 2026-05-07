@@ -1,3 +1,4 @@
+
 # 🌿 Meyve & Sebze Satış Platformu — Design Patterns Uygulaması
 
 Günlük hayatımızın vazgeçilmezi olan taze meyve ve sebzelerin online ortamda satışını yönetmek için geliştirilmiş bu platform, aynı zamanda modern yazılım mimarisinin nasıl kurulması gerektiğini gösteren teknik bir çalışmadır. Kullanıcı sipariş verdiği andan ödemeyi tamamladığı ana kadar geçen her adım, birbirinden bağımsız ve tek sorumluluğu olan yazılım bileşenleri tarafından yönetilir. Sistemin tüm verileri Microsoft SQL Server üzerinde tutulmakta, .NET 8 ile geliştirilen backend katmanı aracılığıyla dinamik olarak işlenerek kullanıcıya sunulmaktadır.
@@ -91,6 +92,18 @@ Günlük hayatımızın vazgeçilmezi olan taze meyve ve sebzelerin online ortam
 > Ana sayfadaki görsel kampanyalar ve duyurular buradan güncellenir. Yapılan değişiklik anında kullanıcıya yansır.
 
 <img width="1365" alt="AdminBanner" src="https://github.com/user-attachments/assets/40cb4db7-2bc8-4172-939f-cad29fbfa98d" />
+
+---
+### ✅ Sipariş Onay Sayfası
+> Ödeme süreci tamamlandığında kullanıcıya sipariş onay ekranı gösterilir. Mutfağa iletilen sipariş hazırlanmaya başlar.
+
+<img width="542" alt="OrderOkey" src="https://github.com/user-attachments/assets/155d2998-40a7-4c90-86c7-ba6a2559a375" />
+---
+
+### 🔔 Admin — İndirim & Bildirim Takibi
+> Müşterilere özel fiyat indirimi mesajları buradan gönderilir. İlgili ürün ve müşteri seçilerek indirim bildirimi onaylanır ve iletilir.
+
+<img width="1162" alt="Observer1" src="https://github.com/user-attachments/assets/2c6c7562-dc0a-4174-abd6-1a3885ec006f" />
 
 ---
 
